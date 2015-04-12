@@ -1,0 +1,71 @@
+package com.loadbalancers.balancer;
+
+option java_generic_services = true;
+
+//////////////////////////////////////////////////////////////////////////////
+//                                 Messages
+//////////////////////////////////////////////////////////////////////////////
+
+enum JobType {
+    /** Send a command to return after a specified interval */
+    TIMED_JOB = 1;
+}
+
+/** Request from com.loadbalancers.balancer.client -> centralized server */
+message ClientRequest {
+    optional JobType type = 1;
+    optional int64 simulatedJobDuration = 2;
+}
+
+/** Response from centralized server -> com.loadbalancers.balancer.client */
+message ClientResponse {
+    optional string response = 1;
+}
+
+/** Request from centralized balancer server -> worker node */
+message BalancerRequest {
+    optional JobType type = 1;
+    optional int32 jobID = 2;
+    optional int64 simulatedJobDuration = 3;
+}
+
+
+/** Response from worker node -> centralized balancer server */
+message BalancerResponse {
+    optional JobType type = 1;
+    optional int32 jobID = 2;
+    optional string response = 3;
+}
+
+//////////////////////////////////////////////////////////////////////////////
+//                                 Services
+//////////////////////////////////////////////////////////////////////////////
+
+/** The centralized load balancing server */
+service LoadBalancerServer {
+    /** Issue a request to the centralized load balancer */
+    rpc makeRequest(ClientRequest) returns (ClientResponse);
+}
+
+
+/** A worker node managed by the load balancing server*/
+service LoadBalancerWorker {
+    /** Pass on a request to do work to this node */
+    rpc doWork(BalancerRequest) returns (BalancerResponse);
+}
+
+//////////////////////////////////////////////////////////////////////////////
+//                                 Traces
+//////////////////////////////////////////////////////////////////////////////
+
+/** An individual trace request - contains the query, and the time to wait after prior message before sending it */
+message TraceRequest {
+    optional ClientRequest req = 1;
+    optional int64 interarrivalDelay = 2;
+}
+
+/** A collective trace - a list of trace queries*/
+message Trace {
+    optional string traceName = 1;
+    repeated TraceRequest reqs = 2;
+}
