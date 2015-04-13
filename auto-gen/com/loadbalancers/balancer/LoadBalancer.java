@@ -600,6 +600,16 @@ public final class LoadBalancer {
      */
     com.google.protobuf.ByteString
         getResponseBytes();
+
+    // optional int64 simulatedJobDuration = 2;
+    /**
+     * <code>optional int64 simulatedJobDuration = 2;</code>
+     */
+    boolean hasSimulatedJobDuration();
+    /**
+     * <code>optional int64 simulatedJobDuration = 2;</code>
+     */
+    long getSimulatedJobDuration();
   }
   /**
    * Protobuf type {@code com.loadbalancers.balancer.ClientResponse}
@@ -659,6 +669,11 @@ public final class LoadBalancer {
             case 10: {
               bitField0_ |= 0x00000001;
               response_ = input.readBytes();
+              break;
+            }
+            case 16: {
+              bitField0_ |= 0x00000002;
+              simulatedJobDuration_ = input.readInt64();
               break;
             }
           }
@@ -744,8 +759,25 @@ public final class LoadBalancer {
       }
     }
 
+    // optional int64 simulatedJobDuration = 2;
+    public static final int SIMULATEDJOBDURATION_FIELD_NUMBER = 2;
+    private long simulatedJobDuration_;
+    /**
+     * <code>optional int64 simulatedJobDuration = 2;</code>
+     */
+    public boolean hasSimulatedJobDuration() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    /**
+     * <code>optional int64 simulatedJobDuration = 2;</code>
+     */
+    public long getSimulatedJobDuration() {
+      return simulatedJobDuration_;
+    }
+
     private void initFields() {
       response_ = "";
+      simulatedJobDuration_ = 0L;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -762,6 +794,9 @@ public final class LoadBalancer {
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         output.writeBytes(1, getResponseBytes());
       }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeInt64(2, simulatedJobDuration_);
+      }
       getUnknownFields().writeTo(output);
     }
 
@@ -774,6 +809,10 @@ public final class LoadBalancer {
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         size += com.google.protobuf.CodedOutputStream
           .computeBytesSize(1, getResponseBytes());
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(2, simulatedJobDuration_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -897,6 +936,8 @@ public final class LoadBalancer {
         super.clear();
         response_ = "";
         bitField0_ = (bitField0_ & ~0x00000001);
+        simulatedJobDuration_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00000002);
         return this;
       }
 
@@ -929,6 +970,10 @@ public final class LoadBalancer {
           to_bitField0_ |= 0x00000001;
         }
         result.response_ = response_;
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.simulatedJobDuration_ = simulatedJobDuration_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -949,6 +994,9 @@ public final class LoadBalancer {
           bitField0_ |= 0x00000001;
           response_ = other.response_;
           onChanged();
+        }
+        if (other.hasSimulatedJobDuration()) {
+          setSimulatedJobDuration(other.getSimulatedJobDuration());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -1047,6 +1095,39 @@ public final class LoadBalancer {
   }
   bitField0_ |= 0x00000001;
         response_ = value;
+        onChanged();
+        return this;
+      }
+
+      // optional int64 simulatedJobDuration = 2;
+      private long simulatedJobDuration_ ;
+      /**
+       * <code>optional int64 simulatedJobDuration = 2;</code>
+       */
+      public boolean hasSimulatedJobDuration() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      /**
+       * <code>optional int64 simulatedJobDuration = 2;</code>
+       */
+      public long getSimulatedJobDuration() {
+        return simulatedJobDuration_;
+      }
+      /**
+       * <code>optional int64 simulatedJobDuration = 2;</code>
+       */
+      public Builder setSimulatedJobDuration(long value) {
+        bitField0_ |= 0x00000002;
+        simulatedJobDuration_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional int64 simulatedJobDuration = 2;</code>
+       */
+      public Builder clearSimulatedJobDuration() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        simulatedJobDuration_ = 0L;
         onChanged();
         return this;
       }
@@ -2285,6 +2366,806 @@ public final class LoadBalancer {
     }
 
     // @@protoc_insertion_point(class_scope:com.loadbalancers.balancer.BalancerResponse)
+  }
+
+  public interface BalancerConfigurationRequestOrBuilder
+      extends com.google.protobuf.MessageOrBuilder {
+
+    // optional int32 workerID = 1;
+    /**
+     * <code>optional int32 workerID = 1;</code>
+     */
+    boolean hasWorkerID();
+    /**
+     * <code>optional int32 workerID = 1;</code>
+     */
+    int getWorkerID();
+  }
+  /**
+   * Protobuf type {@code com.loadbalancers.balancer.BalancerConfigurationRequest}
+   *
+   * <pre>
+   ** Configure workers 
+   * </pre>
+   */
+  public static final class BalancerConfigurationRequest extends
+      com.google.protobuf.GeneratedMessage
+      implements BalancerConfigurationRequestOrBuilder {
+    // Use BalancerConfigurationRequest.newBuilder() to construct.
+    private BalancerConfigurationRequest(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+      this.unknownFields = builder.getUnknownFields();
+    }
+    private BalancerConfigurationRequest(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
+    private static final BalancerConfigurationRequest defaultInstance;
+    public static BalancerConfigurationRequest getDefaultInstance() {
+      return defaultInstance;
+    }
+
+    public BalancerConfigurationRequest getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+
+    private final com.google.protobuf.UnknownFieldSet unknownFields;
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+      return this.unknownFields;
+    }
+    private BalancerConfigurationRequest(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      initFields();
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 8: {
+              bitField0_ |= 0x00000001;
+              workerID_ = input.readInt32();
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e.getMessage()).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.loadbalancers.balancer.LoadBalancer.internal_static_com_loadbalancers_balancer_BalancerConfigurationRequest_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.loadbalancers.balancer.LoadBalancer.internal_static_com_loadbalancers_balancer_BalancerConfigurationRequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.loadbalancers.balancer.LoadBalancer.BalancerConfigurationRequest.class, com.loadbalancers.balancer.LoadBalancer.BalancerConfigurationRequest.Builder.class);
+    }
+
+    public static com.google.protobuf.Parser<BalancerConfigurationRequest> PARSER =
+        new com.google.protobuf.AbstractParser<BalancerConfigurationRequest>() {
+      public BalancerConfigurationRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new BalancerConfigurationRequest(input, extensionRegistry);
+      }
+    };
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<BalancerConfigurationRequest> getParserForType() {
+      return PARSER;
+    }
+
+    private int bitField0_;
+    // optional int32 workerID = 1;
+    public static final int WORKERID_FIELD_NUMBER = 1;
+    private int workerID_;
+    /**
+     * <code>optional int32 workerID = 1;</code>
+     */
+    public boolean hasWorkerID() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    /**
+     * <code>optional int32 workerID = 1;</code>
+     */
+    public int getWorkerID() {
+      return workerID_;
+    }
+
+    private void initFields() {
+      workerID_ = 0;
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized != -1) return isInitialized == 1;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeInt32(1, workerID_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(1, workerID_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+
+    public static com.loadbalancers.balancer.LoadBalancer.BalancerConfigurationRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.loadbalancers.balancer.LoadBalancer.BalancerConfigurationRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.loadbalancers.balancer.LoadBalancer.BalancerConfigurationRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.loadbalancers.balancer.LoadBalancer.BalancerConfigurationRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.loadbalancers.balancer.LoadBalancer.BalancerConfigurationRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static com.loadbalancers.balancer.LoadBalancer.BalancerConfigurationRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+    public static com.loadbalancers.balancer.LoadBalancer.BalancerConfigurationRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input);
+    }
+    public static com.loadbalancers.balancer.LoadBalancer.BalancerConfigurationRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+    }
+    public static com.loadbalancers.balancer.LoadBalancer.BalancerConfigurationRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static com.loadbalancers.balancer.LoadBalancer.BalancerConfigurationRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(com.loadbalancers.balancer.LoadBalancer.BalancerConfigurationRequest prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code com.loadbalancers.balancer.BalancerConfigurationRequest}
+     *
+     * <pre>
+     ** Configure workers 
+     * </pre>
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder>
+       implements com.loadbalancers.balancer.LoadBalancer.BalancerConfigurationRequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.loadbalancers.balancer.LoadBalancer.internal_static_com_loadbalancers_balancer_BalancerConfigurationRequest_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.loadbalancers.balancer.LoadBalancer.internal_static_com_loadbalancers_balancer_BalancerConfigurationRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.loadbalancers.balancer.LoadBalancer.BalancerConfigurationRequest.class, com.loadbalancers.balancer.LoadBalancer.BalancerConfigurationRequest.Builder.class);
+      }
+
+      // Construct using com.loadbalancers.balancer.LoadBalancer.BalancerConfigurationRequest.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+
+      public Builder clear() {
+        super.clear();
+        workerID_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        return this;
+      }
+
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.loadbalancers.balancer.LoadBalancer.internal_static_com_loadbalancers_balancer_BalancerConfigurationRequest_descriptor;
+      }
+
+      public com.loadbalancers.balancer.LoadBalancer.BalancerConfigurationRequest getDefaultInstanceForType() {
+        return com.loadbalancers.balancer.LoadBalancer.BalancerConfigurationRequest.getDefaultInstance();
+      }
+
+      public com.loadbalancers.balancer.LoadBalancer.BalancerConfigurationRequest build() {
+        com.loadbalancers.balancer.LoadBalancer.BalancerConfigurationRequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public com.loadbalancers.balancer.LoadBalancer.BalancerConfigurationRequest buildPartial() {
+        com.loadbalancers.balancer.LoadBalancer.BalancerConfigurationRequest result = new com.loadbalancers.balancer.LoadBalancer.BalancerConfigurationRequest(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.workerID_ = workerID_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.loadbalancers.balancer.LoadBalancer.BalancerConfigurationRequest) {
+          return mergeFrom((com.loadbalancers.balancer.LoadBalancer.BalancerConfigurationRequest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.loadbalancers.balancer.LoadBalancer.BalancerConfigurationRequest other) {
+        if (other == com.loadbalancers.balancer.LoadBalancer.BalancerConfigurationRequest.getDefaultInstance()) return this;
+        if (other.hasWorkerID()) {
+          setWorkerID(other.getWorkerID());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.loadbalancers.balancer.LoadBalancer.BalancerConfigurationRequest parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.loadbalancers.balancer.LoadBalancer.BalancerConfigurationRequest) e.getUnfinishedMessage();
+          throw e;
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      // optional int32 workerID = 1;
+      private int workerID_ ;
+      /**
+       * <code>optional int32 workerID = 1;</code>
+       */
+      public boolean hasWorkerID() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      /**
+       * <code>optional int32 workerID = 1;</code>
+       */
+      public int getWorkerID() {
+        return workerID_;
+      }
+      /**
+       * <code>optional int32 workerID = 1;</code>
+       */
+      public Builder setWorkerID(int value) {
+        bitField0_ |= 0x00000001;
+        workerID_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional int32 workerID = 1;</code>
+       */
+      public Builder clearWorkerID() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        workerID_ = 0;
+        onChanged();
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:com.loadbalancers.balancer.BalancerConfigurationRequest)
+    }
+
+    static {
+      defaultInstance = new BalancerConfigurationRequest(true);
+      defaultInstance.initFields();
+    }
+
+    // @@protoc_insertion_point(class_scope:com.loadbalancers.balancer.BalancerConfigurationRequest)
+  }
+
+  public interface BalancerConfigurationResponseOrBuilder
+      extends com.google.protobuf.MessageOrBuilder {
+
+    // optional bool accepted = 1;
+    /**
+     * <code>optional bool accepted = 1;</code>
+     */
+    boolean hasAccepted();
+    /**
+     * <code>optional bool accepted = 1;</code>
+     */
+    boolean getAccepted();
+  }
+  /**
+   * Protobuf type {@code com.loadbalancers.balancer.BalancerConfigurationResponse}
+   */
+  public static final class BalancerConfigurationResponse extends
+      com.google.protobuf.GeneratedMessage
+      implements BalancerConfigurationResponseOrBuilder {
+    // Use BalancerConfigurationResponse.newBuilder() to construct.
+    private BalancerConfigurationResponse(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+      this.unknownFields = builder.getUnknownFields();
+    }
+    private BalancerConfigurationResponse(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
+    private static final BalancerConfigurationResponse defaultInstance;
+    public static BalancerConfigurationResponse getDefaultInstance() {
+      return defaultInstance;
+    }
+
+    public BalancerConfigurationResponse getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+
+    private final com.google.protobuf.UnknownFieldSet unknownFields;
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+      return this.unknownFields;
+    }
+    private BalancerConfigurationResponse(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      initFields();
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 8: {
+              bitField0_ |= 0x00000001;
+              accepted_ = input.readBool();
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e.getMessage()).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.loadbalancers.balancer.LoadBalancer.internal_static_com_loadbalancers_balancer_BalancerConfigurationResponse_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.loadbalancers.balancer.LoadBalancer.internal_static_com_loadbalancers_balancer_BalancerConfigurationResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.loadbalancers.balancer.LoadBalancer.BalancerConfigurationResponse.class, com.loadbalancers.balancer.LoadBalancer.BalancerConfigurationResponse.Builder.class);
+    }
+
+    public static com.google.protobuf.Parser<BalancerConfigurationResponse> PARSER =
+        new com.google.protobuf.AbstractParser<BalancerConfigurationResponse>() {
+      public BalancerConfigurationResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new BalancerConfigurationResponse(input, extensionRegistry);
+      }
+    };
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<BalancerConfigurationResponse> getParserForType() {
+      return PARSER;
+    }
+
+    private int bitField0_;
+    // optional bool accepted = 1;
+    public static final int ACCEPTED_FIELD_NUMBER = 1;
+    private boolean accepted_;
+    /**
+     * <code>optional bool accepted = 1;</code>
+     */
+    public boolean hasAccepted() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    /**
+     * <code>optional bool accepted = 1;</code>
+     */
+    public boolean getAccepted() {
+      return accepted_;
+    }
+
+    private void initFields() {
+      accepted_ = false;
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized != -1) return isInitialized == 1;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeBool(1, accepted_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(1, accepted_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+
+    public static com.loadbalancers.balancer.LoadBalancer.BalancerConfigurationResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.loadbalancers.balancer.LoadBalancer.BalancerConfigurationResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.loadbalancers.balancer.LoadBalancer.BalancerConfigurationResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.loadbalancers.balancer.LoadBalancer.BalancerConfigurationResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.loadbalancers.balancer.LoadBalancer.BalancerConfigurationResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static com.loadbalancers.balancer.LoadBalancer.BalancerConfigurationResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+    public static com.loadbalancers.balancer.LoadBalancer.BalancerConfigurationResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input);
+    }
+    public static com.loadbalancers.balancer.LoadBalancer.BalancerConfigurationResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+    }
+    public static com.loadbalancers.balancer.LoadBalancer.BalancerConfigurationResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static com.loadbalancers.balancer.LoadBalancer.BalancerConfigurationResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(com.loadbalancers.balancer.LoadBalancer.BalancerConfigurationResponse prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code com.loadbalancers.balancer.BalancerConfigurationResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder>
+       implements com.loadbalancers.balancer.LoadBalancer.BalancerConfigurationResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.loadbalancers.balancer.LoadBalancer.internal_static_com_loadbalancers_balancer_BalancerConfigurationResponse_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.loadbalancers.balancer.LoadBalancer.internal_static_com_loadbalancers_balancer_BalancerConfigurationResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.loadbalancers.balancer.LoadBalancer.BalancerConfigurationResponse.class, com.loadbalancers.balancer.LoadBalancer.BalancerConfigurationResponse.Builder.class);
+      }
+
+      // Construct using com.loadbalancers.balancer.LoadBalancer.BalancerConfigurationResponse.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+
+      public Builder clear() {
+        super.clear();
+        accepted_ = false;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        return this;
+      }
+
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.loadbalancers.balancer.LoadBalancer.internal_static_com_loadbalancers_balancer_BalancerConfigurationResponse_descriptor;
+      }
+
+      public com.loadbalancers.balancer.LoadBalancer.BalancerConfigurationResponse getDefaultInstanceForType() {
+        return com.loadbalancers.balancer.LoadBalancer.BalancerConfigurationResponse.getDefaultInstance();
+      }
+
+      public com.loadbalancers.balancer.LoadBalancer.BalancerConfigurationResponse build() {
+        com.loadbalancers.balancer.LoadBalancer.BalancerConfigurationResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public com.loadbalancers.balancer.LoadBalancer.BalancerConfigurationResponse buildPartial() {
+        com.loadbalancers.balancer.LoadBalancer.BalancerConfigurationResponse result = new com.loadbalancers.balancer.LoadBalancer.BalancerConfigurationResponse(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.accepted_ = accepted_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.loadbalancers.balancer.LoadBalancer.BalancerConfigurationResponse) {
+          return mergeFrom((com.loadbalancers.balancer.LoadBalancer.BalancerConfigurationResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.loadbalancers.balancer.LoadBalancer.BalancerConfigurationResponse other) {
+        if (other == com.loadbalancers.balancer.LoadBalancer.BalancerConfigurationResponse.getDefaultInstance()) return this;
+        if (other.hasAccepted()) {
+          setAccepted(other.getAccepted());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.loadbalancers.balancer.LoadBalancer.BalancerConfigurationResponse parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.loadbalancers.balancer.LoadBalancer.BalancerConfigurationResponse) e.getUnfinishedMessage();
+          throw e;
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      // optional bool accepted = 1;
+      private boolean accepted_ ;
+      /**
+       * <code>optional bool accepted = 1;</code>
+       */
+      public boolean hasAccepted() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      /**
+       * <code>optional bool accepted = 1;</code>
+       */
+      public boolean getAccepted() {
+        return accepted_;
+      }
+      /**
+       * <code>optional bool accepted = 1;</code>
+       */
+      public Builder setAccepted(boolean value) {
+        bitField0_ |= 0x00000001;
+        accepted_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional bool accepted = 1;</code>
+       */
+      public Builder clearAccepted() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        accepted_ = false;
+        onChanged();
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:com.loadbalancers.balancer.BalancerConfigurationResponse)
+    }
+
+    static {
+      defaultInstance = new BalancerConfigurationResponse(true);
+      defaultInstance.initFields();
+    }
+
+    // @@protoc_insertion_point(class_scope:com.loadbalancers.balancer.BalancerConfigurationResponse)
   }
 
   public interface TraceRequestOrBuilder
@@ -3981,6 +4862,18 @@ public final class LoadBalancer {
 
     public interface Interface {
       /**
+       * <code>rpc setID(.com.loadbalancers.balancer.BalancerConfigurationRequest) returns (.com.loadbalancers.balancer.BalancerConfigurationResponse);</code>
+       *
+       * <pre>
+       ** Set the ID for a given worker 
+       * </pre>
+       */
+      public abstract void setID(
+          com.google.protobuf.RpcController controller,
+          com.loadbalancers.balancer.LoadBalancer.BalancerConfigurationRequest request,
+          com.google.protobuf.RpcCallback<com.loadbalancers.balancer.LoadBalancer.BalancerConfigurationResponse> done);
+
+      /**
        * <code>rpc doWork(.com.loadbalancers.balancer.BalancerRequest) returns (.com.loadbalancers.balancer.BalancerResponse);</code>
        *
        * <pre>
@@ -3997,6 +4890,14 @@ public final class LoadBalancer {
     public static com.google.protobuf.Service newReflectiveService(
         final Interface impl) {
       return new LoadBalancerWorker() {
+        @java.lang.Override
+        public  void setID(
+            com.google.protobuf.RpcController controller,
+            com.loadbalancers.balancer.LoadBalancer.BalancerConfigurationRequest request,
+            com.google.protobuf.RpcCallback<com.loadbalancers.balancer.LoadBalancer.BalancerConfigurationResponse> done) {
+          impl.setID(controller, request, done);
+        }
+
         @java.lang.Override
         public  void doWork(
             com.google.protobuf.RpcController controller,
@@ -4028,6 +4929,8 @@ public final class LoadBalancer {
           }
           switch(method.getIndex()) {
             case 0:
+              return impl.setID(controller, (com.loadbalancers.balancer.LoadBalancer.BalancerConfigurationRequest)request);
+            case 1:
               return impl.doWork(controller, (com.loadbalancers.balancer.LoadBalancer.BalancerRequest)request);
             default:
               throw new java.lang.AssertionError("Can't get here.");
@@ -4044,6 +4947,8 @@ public final class LoadBalancer {
           }
           switch(method.getIndex()) {
             case 0:
+              return com.loadbalancers.balancer.LoadBalancer.BalancerConfigurationRequest.getDefaultInstance();
+            case 1:
               return com.loadbalancers.balancer.LoadBalancer.BalancerRequest.getDefaultInstance();
             default:
               throw new java.lang.AssertionError("Can't get here.");
@@ -4060,6 +4965,8 @@ public final class LoadBalancer {
           }
           switch(method.getIndex()) {
             case 0:
+              return com.loadbalancers.balancer.LoadBalancer.BalancerConfigurationResponse.getDefaultInstance();
+            case 1:
               return com.loadbalancers.balancer.LoadBalancer.BalancerResponse.getDefaultInstance();
             default:
               throw new java.lang.AssertionError("Can't get here.");
@@ -4068,6 +4975,18 @@ public final class LoadBalancer {
 
       };
     }
+
+    /**
+     * <code>rpc setID(.com.loadbalancers.balancer.BalancerConfigurationRequest) returns (.com.loadbalancers.balancer.BalancerConfigurationResponse);</code>
+     *
+     * <pre>
+     ** Set the ID for a given worker 
+     * </pre>
+     */
+    public abstract void setID(
+        com.google.protobuf.RpcController controller,
+        com.loadbalancers.balancer.LoadBalancer.BalancerConfigurationRequest request,
+        com.google.protobuf.RpcCallback<com.loadbalancers.balancer.LoadBalancer.BalancerConfigurationResponse> done);
 
     /**
      * <code>rpc doWork(.com.loadbalancers.balancer.BalancerRequest) returns (.com.loadbalancers.balancer.BalancerResponse);</code>
@@ -4104,6 +5023,11 @@ public final class LoadBalancer {
       }
       switch(method.getIndex()) {
         case 0:
+          this.setID(controller, (com.loadbalancers.balancer.LoadBalancer.BalancerConfigurationRequest)request,
+            com.google.protobuf.RpcUtil.<com.loadbalancers.balancer.LoadBalancer.BalancerConfigurationResponse>specializeCallback(
+              done));
+          return;
+        case 1:
           this.doWork(controller, (com.loadbalancers.balancer.LoadBalancer.BalancerRequest)request,
             com.google.protobuf.RpcUtil.<com.loadbalancers.balancer.LoadBalancer.BalancerResponse>specializeCallback(
               done));
@@ -4123,6 +5047,8 @@ public final class LoadBalancer {
       }
       switch(method.getIndex()) {
         case 0:
+          return com.loadbalancers.balancer.LoadBalancer.BalancerConfigurationRequest.getDefaultInstance();
+        case 1:
           return com.loadbalancers.balancer.LoadBalancer.BalancerRequest.getDefaultInstance();
         default:
           throw new java.lang.AssertionError("Can't get here.");
@@ -4139,6 +5065,8 @@ public final class LoadBalancer {
       }
       switch(method.getIndex()) {
         case 0:
+          return com.loadbalancers.balancer.LoadBalancer.BalancerConfigurationResponse.getDefaultInstance();
+        case 1:
           return com.loadbalancers.balancer.LoadBalancer.BalancerResponse.getDefaultInstance();
         default:
           throw new java.lang.AssertionError("Can't get here.");
@@ -4161,12 +5089,27 @@ public final class LoadBalancer {
         return channel;
       }
 
+      public  void setID(
+          com.google.protobuf.RpcController controller,
+          com.loadbalancers.balancer.LoadBalancer.BalancerConfigurationRequest request,
+          com.google.protobuf.RpcCallback<com.loadbalancers.balancer.LoadBalancer.BalancerConfigurationResponse> done) {
+        channel.callMethod(
+          getDescriptor().getMethods().get(0),
+          controller,
+          request,
+          com.loadbalancers.balancer.LoadBalancer.BalancerConfigurationResponse.getDefaultInstance(),
+          com.google.protobuf.RpcUtil.generalizeCallback(
+            done,
+            com.loadbalancers.balancer.LoadBalancer.BalancerConfigurationResponse.class,
+            com.loadbalancers.balancer.LoadBalancer.BalancerConfigurationResponse.getDefaultInstance()));
+      }
+
       public  void doWork(
           com.google.protobuf.RpcController controller,
           com.loadbalancers.balancer.LoadBalancer.BalancerRequest request,
           com.google.protobuf.RpcCallback<com.loadbalancers.balancer.LoadBalancer.BalancerResponse> done) {
         channel.callMethod(
-          getDescriptor().getMethods().get(0),
+          getDescriptor().getMethods().get(1),
           controller,
           request,
           com.loadbalancers.balancer.LoadBalancer.BalancerResponse.getDefaultInstance(),
@@ -4183,6 +5126,11 @@ public final class LoadBalancer {
     }
 
     public interface BlockingInterface {
+      public com.loadbalancers.balancer.LoadBalancer.BalancerConfigurationResponse setID(
+          com.google.protobuf.RpcController controller,
+          com.loadbalancers.balancer.LoadBalancer.BalancerConfigurationRequest request)
+          throws com.google.protobuf.ServiceException;
+
       public com.loadbalancers.balancer.LoadBalancer.BalancerResponse doWork(
           com.google.protobuf.RpcController controller,
           com.loadbalancers.balancer.LoadBalancer.BalancerRequest request)
@@ -4196,12 +5144,24 @@ public final class LoadBalancer {
 
       private final com.google.protobuf.BlockingRpcChannel channel;
 
+      public com.loadbalancers.balancer.LoadBalancer.BalancerConfigurationResponse setID(
+          com.google.protobuf.RpcController controller,
+          com.loadbalancers.balancer.LoadBalancer.BalancerConfigurationRequest request)
+          throws com.google.protobuf.ServiceException {
+        return (com.loadbalancers.balancer.LoadBalancer.BalancerConfigurationResponse) channel.callBlockingMethod(
+          getDescriptor().getMethods().get(0),
+          controller,
+          request,
+          com.loadbalancers.balancer.LoadBalancer.BalancerConfigurationResponse.getDefaultInstance());
+      }
+
+
       public com.loadbalancers.balancer.LoadBalancer.BalancerResponse doWork(
           com.google.protobuf.RpcController controller,
           com.loadbalancers.balancer.LoadBalancer.BalancerRequest request)
           throws com.google.protobuf.ServiceException {
         return (com.loadbalancers.balancer.LoadBalancer.BalancerResponse) channel.callBlockingMethod(
-          getDescriptor().getMethods().get(0),
+          getDescriptor().getMethods().get(1),
           controller,
           request,
           com.loadbalancers.balancer.LoadBalancer.BalancerResponse.getDefaultInstance());
@@ -4233,6 +5193,16 @@ public final class LoadBalancer {
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_com_loadbalancers_balancer_BalancerResponse_fieldAccessorTable;
   private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_com_loadbalancers_balancer_BalancerConfigurationRequest_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_com_loadbalancers_balancer_BalancerConfigurationRequest_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_com_loadbalancers_balancer_BalancerConfigurationResponse_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_com_loadbalancers_balancer_BalancerConfigurationResponse_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
     internal_static_com_loadbalancers_balancer_TraceRequest_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
@@ -4254,25 +5224,31 @@ public final class LoadBalancer {
       "\n\022LoadBalancer.proto\022\032com.loadbalancers." +
       "balancer\"`\n\rClientRequest\0221\n\004type\030\001 \001(\0162" +
       "#.com.loadbalancers.balancer.JobType\022\034\n\024" +
-      "simulatedJobDuration\030\002 \001(\003\"\"\n\016ClientResp" +
-      "onse\022\020\n\010response\030\001 \001(\t\"q\n\017BalancerReques" +
-      "t\0221\n\004type\030\001 \001(\0162#.com.loadbalancers.bala" +
-      "ncer.JobType\022\r\n\005jobID\030\002 \001(\005\022\034\n\024simulated" +
-      "JobDuration\030\003 \001(\003\"f\n\020BalancerResponse\0221\n" +
-      "\004type\030\001 \001(\0162#.com.loadbalancers.balancer" +
-      ".JobType\022\r\n\005jobID\030\002 \001(\005\022\020\n\010response\030\003 \001(",
-      "\t\"a\n\014TraceRequest\0226\n\003req\030\001 \001(\0132).com.loa" +
-      "dbalancers.balancer.ClientRequest\022\031\n\021int" +
-      "erarrivalDelay\030\002 \001(\003\"R\n\005Trace\022\021\n\ttraceNa" +
-      "me\030\001 \001(\t\0226\n\004reqs\030\002 \003(\0132(.com.loadbalance" +
-      "rs.balancer.TraceRequest*\030\n\007JobType\022\r\n\tT" +
-      "IMED_JOB\020\0012z\n\022LoadBalancerServer\022d\n\013make" +
-      "Request\022).com.loadbalancers.balancer.Cli" +
-      "entRequest\032*.com.loadbalancers.balancer." +
-      "ClientResponse2y\n\022LoadBalancerWorker\022c\n\006" +
-      "doWork\022+.com.loadbalancers.balancer.Bala",
-      "ncerRequest\032,.com.loadbalancers.balancer" +
-      ".BalancerResponseB\003\210\001\001"
+      "simulatedJobDuration\030\002 \001(\003\"@\n\016ClientResp" +
+      "onse\022\020\n\010response\030\001 \001(\t\022\034\n\024simulatedJobDu" +
+      "ration\030\002 \001(\003\"q\n\017BalancerRequest\0221\n\004type\030" +
+      "\001 \001(\0162#.com.loadbalancers.balancer.JobTy" +
+      "pe\022\r\n\005jobID\030\002 \001(\005\022\034\n\024simulatedJobDuratio" +
+      "n\030\003 \001(\003\"f\n\020BalancerResponse\0221\n\004type\030\001 \001(" +
+      "\0162#.com.loadbalancers.balancer.JobType\022\r",
+      "\n\005jobID\030\002 \001(\005\022\020\n\010response\030\003 \001(\t\"0\n\034Balan" +
+      "cerConfigurationRequest\022\020\n\010workerID\030\001 \001(" +
+      "\005\"1\n\035BalancerConfigurationResponse\022\020\n\010ac" +
+      "cepted\030\001 \001(\010\"a\n\014TraceRequest\0226\n\003req\030\001 \001(" +
+      "\0132).com.loadbalancers.balancer.ClientReq" +
+      "uest\022\031\n\021interarrivalDelay\030\002 \001(\003\"R\n\005Trace" +
+      "\022\021\n\ttraceName\030\001 \001(\t\0226\n\004reqs\030\002 \003(\0132(.com." +
+      "loadbalancers.balancer.TraceRequest*\030\n\007J" +
+      "obType\022\r\n\tTIMED_JOB\020\0012z\n\022LoadBalancerSer" +
+      "ver\022d\n\013makeRequest\022).com.loadbalancers.b",
+      "alancer.ClientRequest\032*.com.loadbalancer" +
+      "s.balancer.ClientResponse2\367\001\n\022LoadBalanc" +
+      "erWorker\022|\n\005setID\0228.com.loadbalancers.ba" +
+      "lancer.BalancerConfigurationRequest\0329.co" +
+      "m.loadbalancers.balancer.BalancerConfigu" +
+      "rationResponse\022c\n\006doWork\022+.com.loadbalan" +
+      "cers.balancer.BalancerRequest\032,.com.load" +
+      "balancers.balancer.BalancerResponseB\003\210\001\001"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -4290,7 +5266,7 @@ public final class LoadBalancer {
           internal_static_com_loadbalancers_balancer_ClientResponse_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_loadbalancers_balancer_ClientResponse_descriptor,
-              new java.lang.String[] { "Response", });
+              new java.lang.String[] { "Response", "SimulatedJobDuration", });
           internal_static_com_loadbalancers_balancer_BalancerRequest_descriptor =
             getDescriptor().getMessageTypes().get(2);
           internal_static_com_loadbalancers_balancer_BalancerRequest_fieldAccessorTable = new
@@ -4303,14 +5279,26 @@ public final class LoadBalancer {
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_loadbalancers_balancer_BalancerResponse_descriptor,
               new java.lang.String[] { "Type", "JobID", "Response", });
-          internal_static_com_loadbalancers_balancer_TraceRequest_descriptor =
+          internal_static_com_loadbalancers_balancer_BalancerConfigurationRequest_descriptor =
             getDescriptor().getMessageTypes().get(4);
+          internal_static_com_loadbalancers_balancer_BalancerConfigurationRequest_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_com_loadbalancers_balancer_BalancerConfigurationRequest_descriptor,
+              new java.lang.String[] { "WorkerID", });
+          internal_static_com_loadbalancers_balancer_BalancerConfigurationResponse_descriptor =
+            getDescriptor().getMessageTypes().get(5);
+          internal_static_com_loadbalancers_balancer_BalancerConfigurationResponse_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_com_loadbalancers_balancer_BalancerConfigurationResponse_descriptor,
+              new java.lang.String[] { "Accepted", });
+          internal_static_com_loadbalancers_balancer_TraceRequest_descriptor =
+            getDescriptor().getMessageTypes().get(6);
           internal_static_com_loadbalancers_balancer_TraceRequest_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_loadbalancers_balancer_TraceRequest_descriptor,
               new java.lang.String[] { "Req", "InterarrivalDelay", });
           internal_static_com_loadbalancers_balancer_Trace_descriptor =
-            getDescriptor().getMessageTypes().get(5);
+            getDescriptor().getMessageTypes().get(7);
           internal_static_com_loadbalancers_balancer_Trace_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_loadbalancers_balancer_Trace_descriptor,

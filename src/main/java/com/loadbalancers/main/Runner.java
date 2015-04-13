@@ -1,6 +1,5 @@
 package com.loadbalancers.main;
 
-import com.google.common.util.concurrent.Uninterruptibles;
 import com.google.protobuf.Service;
 import com.googlecode.protobuf.pro.duplex.PeerInfo;
 import com.loadbalancers.balancer.LoadBalancer;
@@ -19,8 +18,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 /**
  * @author Elias Szabo-Wexler
@@ -38,10 +37,7 @@ public class Runner {
         final LocalTracePlaybackClient client = makeClient(conf);
         final List<LoadBalancer.Trace> traces = loadTraces(context.getBean(Configs.class));
         traces.forEach(client::runTrace);
-
-        while (true) {
-            Uninterruptibles.sleepUninterruptibly(5, TimeUnit.SECONDS);
-        }
+        System.exit(0);
     }
 
     protected static void spinUpWorkers (final ApplicationContext ctx) {
@@ -62,7 +58,9 @@ public class Runner {
         log.info("Spinning up balancer on port:\t" + 15418 + ".");
         final RpcServerFactory serverFact = ctx.getBean(RpcServerFactory.class);
         final RpcServer server = serverFact.makeServer("localhost", 15418);
-        final Service loadBalancerService = LoadBalancer.LoadBalancerServer.newReflectiveService(new RandomLoadBalancerImpl());
+
+        final PeerInfo worker = new PeerInfo("localhost", 15419);
+        final Service loadBalancerService = LoadBalancer.LoadBalancerServer.newReflectiveService(new RandomLoadBalancerImpl(Arrays.asList(worker), "localhost", 15420));
         server.register(loadBalancerService);
         server.runNonblocking();
         return server;

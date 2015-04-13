@@ -35,7 +35,7 @@ public class LocalTracePlaybackClient extends RpcClient {
                                      final int localport) {
         super(Arrays.asList(server), hostname, localport);
 
-        serverChannel = channels.get(server.getHostName());
+        serverChannel = channels.get(server);
 
         nonBlockingService = LoadBalancer.LoadBalancerServer.newStub(serverChannel);
         serverController = serverChannel.newRpcController();

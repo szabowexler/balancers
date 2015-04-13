@@ -6,6 +6,7 @@ import com.googlecode.protobuf.pro.duplex.execute.RpcServerCallExecutor;
 import com.googlecode.protobuf.pro.duplex.execute.ThreadPoolCallExecutor;
 import com.googlecode.protobuf.pro.duplex.listener.RpcConnectionEventListener;
 import com.googlecode.protobuf.pro.duplex.logging.NullLogger;
+import com.googlecode.protobuf.pro.duplex.server.RpcClientRegistry;
 import com.googlecode.protobuf.pro.duplex.timeout.RpcTimeoutChecker;
 import com.googlecode.protobuf.pro.duplex.timeout.RpcTimeoutExecutor;
 import com.googlecode.protobuf.pro.duplex.timeout.TimeoutChecker;
@@ -31,8 +32,8 @@ public class RpcClient {
 
     protected final PeerInfo client;
     protected final List<PeerInfo> servers;
-    protected final Map<String, RpcClientChannel> channels;
-    protected final Map<String, ClientRpcController> controllers;
+    protected final Map<PeerInfo, RpcClientChannel> channels;
+    protected final Map<PeerInfo, ClientRpcController> controllers;
     protected final DuplexTcpClientPipelineFactory clientFactory;
 
     public RpcClient (final List<PeerInfo> servers,
@@ -58,9 +59,10 @@ public class RpcClient {
             try {
                 log.info("Connecting from " + client + " to :\t" + server);
                 final RpcClientChannel rpcClient = clientFactory.peerWith(server, bootstrap);
-                channels.put(server.getHostName(), rpcClient);
+                channels.put(server, rpcClient);
             } catch (Exception ex) {
                 log.error("Something went wrong connecting to:\t" + server, ex);
+                System.exit(-1);
             }
         });
     }
@@ -110,12 +112,11 @@ public class RpcClient {
         return bootstrap;
     }
 
-    public RpcClientChannel getAnyServer () {
-        final List<RpcClientChannel> servers = clientFactory.getRpcClientRegistry().getAllClients();
-        if (servers.size() == 0) {
-            throw new IllegalStateException("Error: no servers available!");
-        } else {
-            return servers.get(0);
-        }
+    public RpcClientRegistry getRpcClientRegistry() {
+        return clientFactory.getRpcClientRegistry();
+    }
+
+    public Map<PeerInfo, RpcClientChannel> getChannels() {
+        return channels;
     }
 }

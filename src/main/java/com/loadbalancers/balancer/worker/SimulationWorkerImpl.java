@@ -19,8 +19,14 @@ public class SimulationWorkerImpl implements LoadBalancer.LoadBalancerWorker.Int
         return workerID;
     }
 
-    public void setWorkerID(int workerID) {
-        this.workerID = workerID;
+    @Override
+    public void setID(final RpcController controller,
+                      final LoadBalancer.BalancerConfigurationRequest request,
+                      final RpcCallback<LoadBalancer.BalancerConfigurationResponse> done) {
+        this.workerID = request.getWorkerID();
+        LoadBalancer.BalancerConfigurationResponse.Builder builder = LoadBalancer.BalancerConfigurationResponse.newBuilder();
+        builder.setAccepted(true);
+        done.run(builder.build());
     }
 
     @Override

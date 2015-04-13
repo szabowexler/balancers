@@ -20,6 +20,7 @@ message ClientRequest {
 /** Response from centralized server -> com.loadbalancers.balancer.client */
 message ClientResponse {
     optional string response = 1;
+    optional int64 simulatedJobDuration = 2;
 }
 
 /** Request from centralized balancer server -> worker node */
@@ -37,6 +38,15 @@ message BalancerResponse {
     optional string response = 3;
 }
 
+/** Configure workers */
+message BalancerConfigurationRequest {
+    optional int32 workerID = 1;
+}
+
+message BalancerConfigurationResponse {
+    optional bool accepted = 1;
+}
+
 //////////////////////////////////////////////////////////////////////////////
 //                                 Services
 //////////////////////////////////////////////////////////////////////////////
@@ -50,6 +60,8 @@ service LoadBalancerServer {
 
 /** A worker node managed by the load balancing server*/
 service LoadBalancerWorker {
+    /** Set the ID for a given worker */
+    rpc setID (BalancerConfigurationRequest) returns (BalancerConfigurationResponse);
     /** Pass on a request to do work to this node */
     rpc doWork(BalancerRequest) returns (BalancerResponse);
 }
