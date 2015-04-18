@@ -9,6 +9,7 @@ import com.loadbalancers.rpc.client.RpcClient;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -24,6 +25,7 @@ public abstract class LoadBalancerImpl implements LoadBalancer.LoadBalancerServe
     protected final RpcClient workerClient;
     protected final Random r;
     protected int nextServer;
+    protected AtomicInteger nextJobID;
     protected Map<Integer, RpcClientChannel> workerIdToChannelMap;
 
     public LoadBalancerImpl (final List<PeerInfo> servers,
@@ -52,10 +54,21 @@ public abstract class LoadBalancerImpl implements LoadBalancer.LoadBalancerServe
         });
         this.r = new Random(System.currentTimeMillis());
         this.nextServer = 0;
+        nextJobID = new AtomicInteger(0);
+    }
+
+    protected LoadBalancer.BalancerRequest buildWorkerRequest (final LoadBalancer.ClientRequest clientReq) {
+        LoadBalancer.BalancerRequest.Builder reqBuilder = LoadBalancer.BalancerRequest.newBuilder();
+        reqBuilder.setJobID(nextJobID.getAndIncrement());
+        reqBuilder.setType(clientReq.getType());
+        if (clientReq.hasSimulatedJobDuration()) {
+            reqBuilder.setSimulatedJobDuration(clientReq.getSimulatedJobDuration());
+        }
+        return reqBuilder.build();
     }
 
     public RpcClientChannel getRandomServer () {
-        final List<RpcClientChannel> servers = workerClient.getRpcClientRegistry().getAllClients();
+        final Collection<RpcClientChannel> servers = workerClient.getChannels().values();
         if (workerIdToChannelMap.isEmpty()) {
             throw new IllegalStateException("Error: no workers available!");
         } else {

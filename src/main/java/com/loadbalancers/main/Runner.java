@@ -18,7 +18,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -32,35 +32,37 @@ public class Runner {
         log.info("Beginning run.");
         final ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring-config.xml");
         final Configs conf = context.getBean(Configs.class);
-        spinUpWorkers(context);
-        final RpcServer balancer = spinUpBalancer(context);
+        final List<PeerInfo> workers = spinUpWorkers(context);
+        final RpcServer balancer = spinUpBalancer(context, workers);
         final LocalTracePlaybackClient client = makeClient(conf);
         final List<LoadBalancer.Trace> traces = loadTraces(context.getBean(Configs.class));
         traces.forEach(client::runTrace);
         System.exit(0);
     }
 
-    protected static void spinUpWorkers (final ApplicationContext ctx) {
+    protected static List<PeerInfo> spinUpWorkers (final ApplicationContext ctx) {
         final Configs conf = ctx.getBean(Configs.class);
         final int workerCount = conf.getWorkerCount();
         final RpcServerFactory serverFact = ctx.getBean(RpcServerFactory.class);
-        int port = 15419;
+        final LinkedList<PeerInfo> workers = new LinkedList<>();
+        int port = 16418;
         for (int i = 0; i < workerCount; i ++ ) {
             log.info("Spinning up worker on port:\t" + port + ".");
-            final RpcServer worker = serverFact.makeServer("localhost", port++);
+            workers.add(new PeerInfo("localhost", port));
+            final RpcServer worker = serverFact.makeServer("localhost", port++, 50);
             final Service loadBalancerWorkerService = LoadBalancer.LoadBalancerWorker.newReflectiveService(new SimulationWorkerImpl());
             worker.register(loadBalancerWorkerService);
             worker.runNonblocking();
         }
+        return workers;
     }
 
-    protected static RpcServer spinUpBalancer (final ApplicationContext ctx) {
+    protected static RpcServer spinUpBalancer (final ApplicationContext ctx, final List<PeerInfo> workers) {
         log.info("Spinning up balancer on port:\t" + 15418 + ".");
         final RpcServerFactory serverFact = ctx.getBean(RpcServerFactory.class);
-        final RpcServer server = serverFact.makeServer("localhost", 15418);
+        final RpcServer server = serverFact.makeServer("localhost", 15418, 50);
 
-        final PeerInfo worker = new PeerInfo("localhost", 15419);
-        final Service loadBalancerService = LoadBalancer.LoadBalancerServer.newReflectiveService(new RandomLoadBalancerImpl(Arrays.asList(worker), "localhost", 15420));
+        final Service loadBalancerService = LoadBalancer.LoadBalancerServer.newReflectiveService(new RandomLoadBalancerImpl(workers, "localhost", 15419));
         server.register(loadBalancerService);
         server.runNonblocking();
         return server;

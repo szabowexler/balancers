@@ -6,7 +6,6 @@ import com.googlecode.protobuf.pro.duplex.execute.RpcServerCallExecutor;
 import com.googlecode.protobuf.pro.duplex.execute.ThreadPoolCallExecutor;
 import com.googlecode.protobuf.pro.duplex.listener.RpcConnectionEventListener;
 import com.googlecode.protobuf.pro.duplex.logging.NullLogger;
-import com.googlecode.protobuf.pro.duplex.server.RpcClientRegistry;
 import com.googlecode.protobuf.pro.duplex.timeout.RpcTimeoutChecker;
 import com.googlecode.protobuf.pro.duplex.timeout.RpcTimeoutExecutor;
 import com.googlecode.protobuf.pro.duplex.timeout.TimeoutChecker;
@@ -30,41 +29,47 @@ import java.util.concurrent.ConcurrentHashMap;
 public class RpcClient {
     private final static Logger log = LogManager.getLogger(RpcClient.class);
 
-    protected final PeerInfo client;
-    protected final List<PeerInfo> servers;
+    protected final Map<PeerInfo, PeerInfo> serverToLocalPortMap;
     protected final Map<PeerInfo, RpcClientChannel> channels;
     protected final Map<PeerInfo, ClientRpcController> controllers;
-    protected final DuplexTcpClientPipelineFactory clientFactory;
+    protected final Map<PeerInfo, DuplexTcpClientPipelineFactory> clientFactories;
+    protected final Map<PeerInfo, Bootstrap> bootstraps;
 
     public RpcClient (final List<PeerInfo> servers,
                       final String localHostname,
-                      final int localPort) {
-        client = new PeerInfo(localHostname, localPort);
-        this.servers = servers;
+                      final int localPortStart) {
+
+        this.serverToLocalPortMap = new ConcurrentHashMap<>();
+        this.clientFactories = new ConcurrentHashMap<>();
         this.channels = new ConcurrentHashMap<>();
         this.controllers = new ConcurrentHashMap<>();
+        this.bootstraps = new ConcurrentHashMap<>();
 
-        final RpcServerCallExecutor executor = new ThreadPoolCallExecutor(3, 100);
-        clientFactory = makeClientFactory(client, executor);
-        final CleanShutdownHandler cleanShutdownHandler = makeTimeoutChecker(clientFactory, executor);
+        int port = localPortStart;
+        for (PeerInfo s : servers) {
+            final PeerInfo connection = new PeerInfo(localHostname, port++);
+            serverToLocalPortMap.put(s, connection);
+            final RpcServerCallExecutor executor = new ThreadPoolCallExecutor(3, 100);
+            final DuplexTcpClientPipelineFactory clientFactory = makeClientFactory(connection, executor);
+            final CleanShutdownHandler cleanShutdownHandler = makeTimeoutChecker(clientFactory, executor);
 
-        RpcConnectionEventNotifier rpcEventNotifier = new RpcConnectionEventNotifier();
-        RpcConnectionEventListener listener = new ClientRpcConnectionEventListener();
-        rpcEventNotifier.setEventListener(listener);
-        clientFactory.registerConnectionEventListener(rpcEventNotifier);
+            RpcConnectionEventNotifier rpcEventNotifier = new RpcConnectionEventNotifier();
+            RpcConnectionEventListener listener = new ClientRpcConnectionEventListener();
+            rpcEventNotifier.setEventListener(listener);
+            clientFactory.registerConnectionEventListener(rpcEventNotifier);
 
-        final Bootstrap bootstrap = makeClientBootstrap(clientFactory, cleanShutdownHandler);
+            final Bootstrap bootstrap = makeClientBootstrap(clientFactory, cleanShutdownHandler);
+            bootstraps.put(s, bootstrap);
 
-        servers.forEach(server -> {
             try {
-                log.info("Connecting from " + client + " to :\t" + server);
-                final RpcClientChannel rpcClient = clientFactory.peerWith(server, bootstrap);
-                channels.put(server, rpcClient);
+                log.info("Connecting from " + connection + " to :\t" + s);
+                final RpcClientChannel rpcClient = clientFactory.peerWith(s, bootstrap);
+                channels.put(s, rpcClient);
             } catch (Exception ex) {
-                log.error("Something went wrong connecting to:\t" + server, ex);
+                log.error("Something went wrong connecting to:\t" + s, ex);
                 System.exit(-1);
             }
-        });
+        }
     }
 
     protected DuplexTcpClientPipelineFactory makeClientFactory (final PeerInfo client,
@@ -103,17 +108,13 @@ public class RpcClient {
         bootstrap.group(new NioEventLoopGroup());
         bootstrap.handler(clientFactory);
         bootstrap.channel(NioSocketChannel.class);
-        bootstrap.option(ChannelOption.TCP_NODELAY, true);
         bootstrap.option(ChannelOption.CONNECT_TIMEOUT_MILLIS,10000);
         bootstrap.option(ChannelOption.SO_SNDBUF, 1048576);
         bootstrap.option(ChannelOption.SO_RCVBUF, 1048576);
+        bootstrap.option(ChannelOption.SO_REUSEADDR, true);
 
         shutdownHandler.addResource(bootstrap.group());
         return bootstrap;
-    }
-
-    public RpcClientRegistry getRpcClientRegistry() {
-        return clientFactory.getRpcClientRegistry();
     }
 
     public Map<PeerInfo, RpcClientChannel> getChannels() {

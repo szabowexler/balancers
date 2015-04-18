@@ -31,12 +31,12 @@ public class RpcServerFactory {
 //    protected @Value("${balancer.server.hostname}") String hostname;
 //    protected @Value("${balancer.server.port}") int port;
 
-    public RpcServer makeServer (final String hostname, final int port) {
+    public RpcServer makeServer (final String hostname, final int port, final int numProcessingThreads) {
         log.info("Creating server on: <" + hostname + ":" + port + ">.");
         final PeerInfo serverInfo = new PeerInfo(hostname, port);
         final DuplexTcpServerPipelineFactory serverFactory = makeServerFactory(serverInfo);
         log.info("Created server tcp factory.");
-        final RpcServerCallExecutor rpcExecutor = new ThreadPoolCallExecutor(10, 10);
+        final RpcServerCallExecutor rpcExecutor = new ThreadPoolCallExecutor(numProcessingThreads, numProcessingThreads);
         serverFactory.setRpcServerCallExecutor(rpcExecutor);
         log.info("Created server executor.");
         final ServerBootstrap serverBootstrap = makeBootstrap(serverFactory, rpcExecutor, serverInfo);
@@ -83,6 +83,7 @@ public class RpcServerFactory {
         bootstrap.childOption(ChannelOption.SO_RCVBUF, 1048576);
         bootstrap.childOption(ChannelOption.SO_SNDBUF, 1048576);
         bootstrap.option(ChannelOption.TCP_NODELAY, false);
+        bootstrap.option(ChannelOption.SO_REUSEADDR, true);
         bootstrap.childHandler(serverFactory);
         bootstrap.localAddress(serverInfo.getPort());
 

@@ -71,6 +71,7 @@ public class LocalTracePlaybackClient extends RpcClient {
                 outstandingJobIDs.remove(jobID);
             };
 
+            log.info("Sending request:\t" + jobID);
             nonBlockingService.makeRequest(serverController, req, callback);
         } catch ( Throwable t) {
             log.error("Something went wrong making a nonblocking request:\t" + t, t);
