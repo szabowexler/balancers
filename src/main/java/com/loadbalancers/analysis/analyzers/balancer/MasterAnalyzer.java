@@ -1,7 +1,8 @@
 package com.loadbalancers.analysis.analyzers.balancer;
 
-import main.analyzers.Analyzer;
-import main.events.LogEventStream;
+
+import com.loadbalancers.analysis.analyzers.Analyzer;
+import com.loadbalancers.analysis.events.LogEventStream;
 
 /**
  * @author Elias Szabo-Wexler

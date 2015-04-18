@@ -36,7 +36,6 @@ public class Runner {
         final RpcServer balancer = spinUpBalancer(context, workers);
         final LocalTracePlaybackClient client = makeClient(conf);
         final List<LoadBalancer.Trace> traces = loadTraces(context.getBean(Configs.class));
-        traces.forEach(client::runTrace);
         System.exit(0);
     }
 

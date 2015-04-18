@@ -1,7 +1,8 @@
 package com.loadbalancers.analysis.analyzers.balancer;
 
-import main.events.LogEvent;
-import main.events.LogEventStream;
+
+import com.loadbalancers.analysis.events.LogEvent;
+import com.loadbalancers.analysis.events.LogEventStream;
 import org.jfree.data.xy.DefaultTableXYDataset;
 import org.jfree.data.xy.TableXYDataset;
 import org.jfree.data.xy.XYSeries;

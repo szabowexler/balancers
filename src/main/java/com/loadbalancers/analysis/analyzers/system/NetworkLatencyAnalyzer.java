@@ -1,7 +1,8 @@
 package com.loadbalancers.analysis.analyzers.system;
 
-import main.events.LogEvent;
-import main.events.LogEventStream;
+
+import com.loadbalancers.analysis.events.LogEvent;
+import com.loadbalancers.analysis.events.LogEventStream;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.jfree.data.xy.XYSeries;

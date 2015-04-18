@@ -1,11 +1,12 @@
 package com.loadbalancers.analysis;
 
-import main.analyzers.Analyzer;
-import main.analyzers.balancer.MasterAnalyzer;
-import main.analyzers.system.GlobalAnalyzer;
-import main.analyzers.workers.WorkersAnalyzer;
-import main.events.LogEvent;
-import main.events.LogEventStream;
+
+import com.loadbalancers.analysis.analyzers.Analyzer;
+import com.loadbalancers.analysis.analyzers.balancer.MasterAnalyzer;
+import com.loadbalancers.analysis.analyzers.system.GlobalAnalyzer;
+import com.loadbalancers.analysis.analyzers.workers.WorkersAnalyzer;
+import com.loadbalancers.analysis.events.LogEvent;
+import com.loadbalancers.analysis.events.LogEventStream;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
