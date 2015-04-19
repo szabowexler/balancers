@@ -3,6 +3,7 @@ package com.loadbalancers.balancer.worker;
 import com.google.protobuf.RpcCallback;
 import com.google.protobuf.RpcController;
 import com.loadbalancers.balancer.LoadBalancer;
+import com.loadbalancers.logging.WorkerLogger;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
@@ -14,14 +15,14 @@ import java.util.concurrent.TimeUnit;
  * @author Elias Szabo-Wexler
  * @since 17/April/2015
  */
-public abstract class WorkerImpl implements LoadBalancer.LoadBalancerWorker.Interface{
-    private final static Logger log = LogManager.getLogger(WorkerImpl.class);
+public abstract class Worker implements LoadBalancer.LoadBalancerWorker.Interface{
+    private final static Logger log = LogManager.getLogger(Worker.class);
     protected int workerID = -1;
 
     protected final ThreadPoolExecutor threadPool;
     protected final LinkedBlockingQueue<Runnable> reqs;
 
-    public WorkerImpl() {
+    public Worker() {
         this.reqs = new LinkedBlockingQueue<>();
         final int logicalCores = Runtime.getRuntime().availableProcessors();
         this.threadPool = new ThreadPoolExecutor(logicalCores, logicalCores, 10, TimeUnit.SECONDS, reqs);
@@ -38,6 +39,7 @@ public abstract class WorkerImpl implements LoadBalancer.LoadBalancerWorker.Inte
         this.workerID = request.getWorkerID();
         LoadBalancer.BalancerConfigurationResponse.Builder builder = LoadBalancer.BalancerConfigurationResponse.newBuilder();
         builder.setAccepted(true);
+        WorkerLogger.logBooted(log);
         done.run(builder.build());
     }
 
@@ -46,6 +48,7 @@ public abstract class WorkerImpl implements LoadBalancer.LoadBalancerWorker.Inte
                        final LoadBalancer.BalancerRequest request,
                        final RpcCallback<LoadBalancer.BalancerResponse> done) {
         log.info("Worker " + workerID + " received job:\t" + request.getJobID() + ".");
+        WorkerLogger.logReceivedRequest(log, request.getJobID());
         final Work w = new Work(controller, request, done);
         threadPool.execute(w);
     }

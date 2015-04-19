@@ -1,8 +1,8 @@
-package com.loadbalancers.analysis.analyzers.workers;
+package com.loadbalancers.logging.analysis.analyzers.workers;
 
-import com.loadbalancers.analysis.analyzers.system.NetworkLatencyAnalyzer;
-import com.loadbalancers.analysis.events.LogEvent;
-import com.loadbalancers.analysis.events.LogEventStream;
+import com.loadbalancers.logging.analysis.analyzers.system.NetworkLatencyAnalyzer;
+import com.loadbalancers.logging.analysis.events.LogEvent;
+import com.loadbalancers.logging.LogEventStream;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.XYSplineRenderer;
 import org.jfree.data.xy.XYSeries;

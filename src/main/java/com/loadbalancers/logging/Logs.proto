@@ -1,4 +1,4 @@
-package com.loadbalancers.analysis.events;
+package com.loadbalancers.logging;
 
 option java_generic_services = false;
 
@@ -28,11 +28,12 @@ enum LogEventType {
 /** Encapsulate an event for analysis*/
 message LogEvent {
     optional LogEventType eventType = 1;
+    optional int64 time = 2;
 
-    optional int32 workerID = 2;
-    optional int32 clientID = 3;
-    optional int32 jobID = 4;
-    optional LoadSnapshot load = 5;
+    optional int32 workerID = 3;
+    optional int32 clientID = 4;
+    optional int32 jobID = 5;
+    optional LoadSnapshot load = 6;
 }
 
 /** Encapsulate load level for analysis */

@@ -1,12 +1,12 @@
-package com.loadbalancers.analysis;
+package com.loadbalancers.logging.analysis;
 
 
-import com.loadbalancers.analysis.analyzers.Analyzer;
-import com.loadbalancers.analysis.analyzers.balancer.MasterAnalyzer;
-import com.loadbalancers.analysis.analyzers.system.GlobalAnalyzer;
-import com.loadbalancers.analysis.analyzers.workers.WorkersAnalyzer;
-import com.loadbalancers.analysis.events.LogEvent;
-import com.loadbalancers.analysis.events.LogEventStream;
+import com.loadbalancers.logging.Logs;
+import com.loadbalancers.logging.analysis.analyzers.Analyzer;
+import com.loadbalancers.logging.analysis.analyzers.balancer.MasterAnalyzer;
+import com.loadbalancers.logging.analysis.analyzers.system.GlobalAnalyzer;
+import com.loadbalancers.logging.analysis.analyzers.workers.WorkersAnalyzer;
+import com.loadbalancers.logging.LogEventStream;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -96,7 +96,7 @@ public class Runner {
 
                     // Now adjust the stream to match the master stream
                     final int workerID = stream.getWorkerID().get();
-                    final LogEventStream bootStream = masterStream.filterForType(LogEvent.EventType.SERVER_WORKER_BOOTED);
+                    final LogEventStream bootStream = masterStream.filterForType(Logs.LogEventType.SERVER_EVENT_WORKER_BOOTED);
                     final long streamStart = bootStream.getEventsForWorker(workerID).get(0).getTime();
                     System.out.println("Adjusting stream [worker " + workerID + "] to start at:\t" + streamStart);
                     stream.setStreamStart(streamStart);

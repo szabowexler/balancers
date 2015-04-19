@@ -1,4 +1,4 @@
-package com.loadbalancers.analysis.analyzers;
+package com.loadbalancers.logging.analysis.analyzers;
 
 
 import org.jfree.chart.ChartFactory;

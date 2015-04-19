@@ -1,7 +1,7 @@
-package com.loadbalancers.analysis.analyzers.system;
+package com.loadbalancers.logging.analysis.analyzers.system;
 
-import com.loadbalancers.analysis.analyzers.Analyzer;
-import com.loadbalancers.analysis.events.LogEventStream;
+import com.loadbalancers.logging.analysis.analyzers.Analyzer;
+import com.loadbalancers.logging.LogEventStream;
 
 import java.util.List;
 

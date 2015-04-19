@@ -1,7 +1,7 @@
-package com.loadbalancers.analysis.analyzers.balancer;
+package com.loadbalancers.logging.analysis.analyzers.balancer;
 
-import com.loadbalancers.analysis.events.LogEvent;
-import com.loadbalancers.analysis.events.LogEventStream;
+import com.loadbalancers.logging.analysis.events.LogEvent;
+import com.loadbalancers.logging.LogEventStream;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 import org.springframework.stereotype.Component;
