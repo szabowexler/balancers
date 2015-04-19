@@ -1,0 +1,46 @@
+package com.loadbalancers.analysis.events;
+
+option java_generic_services = false;
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+//                                      Log Event                                            //
+///////////////////////////////////////////////////////////////////////////////////////////////
+
+enum LogEventType {
+    SERVER_EVENT_WORKER_BOOTED = 0;
+    SERVER_EVENT_WORKER_DIED = 1;
+
+    SERVER_EVENT_RECEIVE_CLIENT_REQUEST = 2;
+    SERVER_EVENT_SEND_CLIENT_RESPONSE = 3;
+
+    SERVER_EVENT_SEND_WORKER_REQUEST = 4;
+    SERVER_EVENT_RECEIVE_WORKER_RESPONSE = 5;
+
+    WORKER_EVENT_BOOTED = 6;
+    WORKER_EVENT_START_TASK = 7;
+    WORKER_EVENT_FINISH_TASK = 8;
+
+    WORKER_EVENT_RECEIVE_REQUEST = 9;
+    WORKER_EVENT_SEND_RESPONSE = 10;
+    WORKER_EVENT_REPORT_LOAD = 11;
+}
+
+/** Encapsulate an event for analysis*/
+message LogEvent {
+    optional LogEventType eventType = 1;
+
+    optional int32 workerID = 2;
+    optional int32 clientID = 3;
+    optional int32 jobID = 4;
+    optional LoadSnapshot load = 5;
+}
+
+/** Encapsulate load level for analysis */
+message LoadSnapshot {
+    /** How many jobs can this worker handle at once? */
+    optional int32 workerMaxConcurrentJobs = 1;
+    /** How many jobs is this worker processing? */
+    optional int32 workerCurrentJobs = 2;
+    /** How many jobs are on the queue? */
+    optional int32 workerQueueSize = 3;
+}
