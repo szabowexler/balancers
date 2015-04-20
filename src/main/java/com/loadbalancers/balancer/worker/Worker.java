@@ -39,7 +39,7 @@ public abstract class Worker implements LoadBalancer.LoadBalancerWorker.Interfac
         this.workerID = request.getWorkerID();
         LoadBalancer.BalancerConfigurationResponse.Builder builder = LoadBalancer.BalancerConfigurationResponse.newBuilder();
         builder.setAccepted(true);
-        WorkerLogger.logBooted(log);
+        WorkerLogger.logBooted();
         done.run(builder.build());
     }
 
@@ -48,7 +48,7 @@ public abstract class Worker implements LoadBalancer.LoadBalancerWorker.Interfac
                        final LoadBalancer.BalancerRequest request,
                        final RpcCallback<LoadBalancer.BalancerResponse> done) {
         log.info("Worker " + workerID + " received job:\t" + request.getJobID() + ".");
-        WorkerLogger.logReceivedRequest(log, request.getJobID());
+        WorkerLogger.logReceivedRequest(request.getJobID());
         final Work w = new Work(controller, request, done);
         threadPool.execute(w);
     }

@@ -1,8 +1,8 @@
 package com.loadbalancers.logging.analysis.analyzers.workers;
 
-import com.loadbalancers.logging.analysis.analyzers.system.NetworkLatencyAnalyzer;
-import com.loadbalancers.logging.analysis.events.LogEvent;
 import com.loadbalancers.logging.LogEventStream;
+import com.loadbalancers.logging.Logs;
+import com.loadbalancers.logging.analysis.analyzers.system.NetworkLatencyAnalyzer;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.XYSplineRenderer;
 import org.jfree.data.xy.XYSeries;
@@ -44,21 +44,21 @@ public class WorkerBacklogAnalyzer extends WorkersAnalyzer{
 
     protected XYSeries createData (final int workerID, final LogEventStream s) {
         final XYSeries series = new XYSeries("W" + workerID);
-        final Iterator<LogEvent> logIterator = s.iterator();
-        final Set<Integer> outstandingTags = new HashSet<>();
+        final Iterator<Logs.LogEvent> logIterator = s.iterator();
+        final Set<Integer> outstandingJobs = new HashSet<>();
         long nextTickMS = s.getStreamStart();
 
         while (logIterator.hasNext()) {
-            final LogEvent next = logIterator.next();
+            final Logs.LogEvent next = logIterator.next();
             while (next.getTime() > nextTickMS) {
-                series.add((double) nextTickMS / 1000., (double) outstandingTags.size());
+                series.add((double) nextTickMS / 1000., (double) outstandingJobs.size());
                 nextTickMS += GRANULARITY_MS;
             }
 
-            if (next.getLogEventType() == LogEvent.EventType.WORKER_RECEIVE_TASK) {
-                outstandingTags.add(next.getTag().get());
-            } else if (next.getLogEventType() == LogEvent.EventType.WORKER_RETURN_TASK) {
-                outstandingTags.remove(next.getTag().get());
+            if (next.getEventType() == Logs.LogEventType.WORKER_EVENT_RECEIVE_REQUEST) {
+                outstandingJobs.add(next.getJobID());
+            } else if (next.getEventType() == Logs.LogEventType.WORKER_EVENT_SEND_RESPONSE) {
+                outstandingJobs.remove(next.getJobID());
             }
         }
         return series;

@@ -1,8 +1,8 @@
 package com.loadbalancers.logging.analysis.analyzers.balancer;
 
 
-import com.loadbalancers.logging.analysis.events.LogEvent;
 import com.loadbalancers.logging.LogEventStream;
+import com.loadbalancers.logging.Logs;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 import org.springframework.stereotype.Component;
@@ -27,11 +27,11 @@ public class ArrivalRateAnalyzer extends MasterAnalyzer {
     public void analyze(final LogEventStream s) {
         System.out.println("Analyzing dispatches...");
 
-        final List<List<LogEvent>> buckets = s.bucket (GRANULARITY);
+        final List<List<Logs.LogEvent>> buckets = s.bucket (GRANULARITY);
         final List<Integer> dataPoints =
                 buckets.stream()
                         .map(b -> (int) b.stream()
-                                .filter(e -> e.getLogEventType() == LogEvent.EventType.SERVER_DISPATCH_REQUEST)
+                                .filter(e -> e.getEventType() == Logs.LogEventType.SERVER_EVENT_SEND_WORKER_REQUEST)
                                 .count()).collect(Collectors.toList());
 
         final XYSeries series = createData(dataPoints);

@@ -14,7 +14,7 @@ import java.nio.file.Paths;
 public class ConstantTraceGenerator {
     private final static long interarrivalTime = 10;
     private final static long msPerJob = 500;
-    private final static long traceDurationSeconds = 1 * 1000;
+    private final static long traceDurationSeconds = 10 * 1000;
 
     public static void main (final String[] args) throws Exception {
         final LoadBalancer.Trace trace = makeTrace();

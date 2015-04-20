@@ -1,8 +1,8 @@
 package com.loadbalancers.logging.analysis.analyzers.system;
 
 
-import com.loadbalancers.logging.analysis.events.LogEvent;
 import com.loadbalancers.logging.LogEventStream;
+import com.loadbalancers.logging.Logs;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.jfree.data.xy.XYSeries;
@@ -40,8 +40,8 @@ public class NetworkLatencyAnalyzer extends GlobalAnalyzer{
     }
 
     protected List<XYSeries> createDatasets (final List<LogEventStream> workerStreams, final LogEventStream masterStream) {
-        final LogEventStream dispatches = masterStream.filterForType(LogEvent.EventType.SERVER_DISPATCH_REQUEST);
-        final ListIterator<LogEvent> iterator = dispatches.iterator();
+        final LogEventStream dispatches = masterStream.filterForType(Logs.LogEventType.SERVER_EVENT_SEND_WORKER_REQUEST);
+        final ListIterator<Logs.LogEvent> iterator = dispatches.iterator();
         final Map<Integer, LogEventStream> workerIdToStreamMap = makeWorkerToStreamMap(workerStreams);
 
         final ArrayList<XYSeries> dataset = new ArrayList<>(workerStreams.size());
@@ -53,7 +53,7 @@ public class NetworkLatencyAnalyzer extends GlobalAnalyzer{
         long nextTickMS = 0;
 
         while (iterator.hasNext()) {
-            final LogEvent d = iterator.next();
+            final Logs.LogEvent d = iterator.next();
             while (masterStream.getTimeSinceStartMS(d) > nextTickMS) {
                 for (int i = 0; i < workerStreams.size(); i ++) {
                     final LogEventStream wStream = workerStreams.get(i);
@@ -68,12 +68,12 @@ public class NetworkLatencyAnalyzer extends GlobalAnalyzer{
                 nextTickMS += NETWORK_LATENCY_GRANULARITY_MS;
             }
 
-            int tag = d.getTag().get();
-            int dispatch_worker_id = d.getWorkerID().get();
-            final LogEventStream stream = workerIdToStreamMap.get(dispatch_worker_id);
+            int jobID = d.getJobID();
+            int dispatchWorkerId = d.getWorkerID();
+            final LogEventStream stream = workerIdToStreamMap.get(dispatchWorkerId);
 
-            final List<LogEvent> masterEvents = masterStream.getEventsForTag(tag);
-            final List<LogEvent> workerEvents = stream.getEventsForTag(tag);
+            final List<Logs.LogEvent> masterEvents = masterStream.getEventsByJobID(jobID);
+            final List<Logs.LogEvent> workerEvents = stream.getEventsByJobID(jobID);
             final long networkTime = getMasterEventDuration(masterEvents) - getWorkerEventDuration(workerEvents);
             networkTimes.forEach(S -> S.add(networkTime));
         }
@@ -95,18 +95,21 @@ public class NetworkLatencyAnalyzer extends GlobalAnalyzer{
         return workerToStreamMap;
     }
 
-    protected long getMasterEventDuration (final List<LogEvent> masterEvents) {
-        return getEventDuration(masterEvents, LogEvent.EventType.SERVER_DISPATCH_REQUEST, LogEvent.EventType.SERVER_RECEIVE_RESPONSE);
+    protected long getMasterEventDuration (final List<Logs.LogEvent> masterEvents) {
+        return getEventDuration(masterEvents, Logs.LogEventType.SERVER_EVENT_SEND_WORKER_REQUEST,
+                Logs.LogEventType.SERVER_EVENT_RECEIVE_WORKER_RESPONSE);
     }
 
-    protected long getWorkerEventDuration (final List<LogEvent> events) {
-        return getEventDuration(events, LogEvent.EventType.WORKER_RECEIVE_TASK, LogEvent.EventType.WORKER_RETURN_TASK);
+    protected long getWorkerEventDuration (final List<Logs.LogEvent> events) {
+        return getEventDuration(events,
+                Logs.LogEventType.WORKER_EVENT_RECEIVE_REQUEST,
+                Logs.LogEventType.WORKER_EVENT_SEND_RESPONSE);
     }
 
-    protected long getEventDuration(final List<LogEvent> events, final LogEvent.EventType start, final LogEvent.EventType end) {
+    protected long getEventDuration(final List<Logs.LogEvent> events, final Logs.LogEventType start, final Logs.LogEventType end) {
         try {
-            final LogEvent dispatchEvent = events.stream().filter(e -> e.getLogEventType() == start).collect(Collectors.toList()).get(0);
-            final LogEvent responseEvent = events.stream().filter(e -> e.getLogEventType() == end).collect(Collectors.toList()).get(0);
+            final Logs.LogEvent dispatchEvent = events.stream().filter(e -> e.getEventType() == start).collect(Collectors.toList()).get(0);
+            final Logs.LogEvent responseEvent = events.stream().filter(e -> e.getEventType() == end).collect(Collectors.toList()).get(0);
             return responseEvent.getTime() - dispatchEvent.getTime();
         } catch (Exception ex) {
             ex.printStackTrace();

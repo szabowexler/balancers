@@ -91,6 +91,13 @@ public class LogEventStream {
                 .collect(Collectors.toList());
     }
 
+    public List<Logs.LogEvent> getEventsByJobID (final int jobID) {
+        return events.parallelStream()
+                .filter(Logs.LogEvent::hasJobID)
+                .filter(e -> e.getJobID() == jobID)
+                .collect(Collectors.toList());
+    }
+
     public int size () {
         return events.size();
     }

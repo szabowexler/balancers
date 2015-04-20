@@ -1,7 +1,7 @@
 package com.loadbalancers.logging.analysis.analyzers.balancer;
 
-import com.loadbalancers.logging.analysis.events.LogEvent;
 import com.loadbalancers.logging.LogEventStream;
+import com.loadbalancers.logging.Logs;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 import org.springframework.stereotype.Component;
@@ -25,10 +25,10 @@ public class ThroughputAnalyzer extends MasterAnalyzer{
     public void analyze(final LogEventStream s) {
         System.out.println("Analyzing throughput...");
 
-        final List<List<LogEvent>> unfilteredBuckets = s.bucket(THROUGHPUT_GRANULARITY_MS);
+        final List<List<Logs.LogEvent>> unfilteredBuckets = s.bucket(THROUGHPUT_GRANULARITY_MS);
         final List<Integer> buckets = unfilteredBuckets.parallelStream()
                 .map(B -> B.parallelStream()
-                        .filter(e -> e.getLogEventType() == LogEvent.EventType.SERVER_RECEIVE_RESPONSE)
+                        .filter(e -> e.getEventType() == Logs.LogEventType.SERVER_EVENT_RECEIVE_WORKER_RESPONSE)
 
                         .collect(Collectors.toList())
                         .size())

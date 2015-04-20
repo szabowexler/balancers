@@ -1,17 +1,10 @@
 package com.loadbalancers.logging.analysis.analyzers.workers;
 
 
-import com.loadbalancers.logging.analysis.analyzers.system.NetworkLatencyAnalyzer;
-import com.loadbalancers.logging.analysis.events.LogEvent;
 import com.loadbalancers.logging.LogEventStream;
-import org.jfree.chart.axis.NumberAxis;
-import org.jfree.chart.plot.XYPlot;
-import org.jfree.data.xy.XYSeries;
-import org.jfree.data.xy.XYSeriesCollection;
 import org.springframework.stereotype.Component;
 
-import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.List;
 
 /**
  * @author Elias Szabo-Wexler
@@ -55,6 +48,12 @@ public class WorkerCPUEfficiencyAnalyzer extends WorkersAnalyzer {
         super(true);
     }
 
+    @Override
+    public void analyze(List<LogEventStream> workerStreams) {
+        // TODO: fill in the actual CPU analysis if necessary
+    }
+
+    /*
     @Override
     public void analyze(final List<LogEventStream> s) {
         System.out.println("Analyzing worker CPU efficiency...");
@@ -343,4 +342,5 @@ public class WorkerCPUEfficiencyAnalyzer extends WorkersAnalyzer {
         final double jiffies = getTotalJiffies(start, end);
         return (end.getIOCPUJiffies() - start.getIOCPUJiffies()) / jiffies * 100.;
     }
+    */
 }

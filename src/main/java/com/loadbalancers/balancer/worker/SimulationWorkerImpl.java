@@ -14,7 +14,7 @@ public class SimulationWorkerImpl extends MonitoringWorker {
     private final static Logger log = LogManager.getLogger(SimulationWorkerImpl.class);
 
     protected void processWork (final Work w) {
-        WorkerLogger.logStartTask(log, w.request.getJobID());
+        WorkerLogger.logStartTask(w.request.getJobID());
         w.jobStartTime = System.currentTimeMillis();
         log.info("Worker " + workerID + " starting job " + w.request.getJobID() + ".");
         final long duration = w.request.getSimulatedJobDuration();
@@ -30,8 +30,8 @@ public class SimulationWorkerImpl extends MonitoringWorker {
         final long timeOnQueue = w.jobStartTime - w.jobReceiveTime;
         final long timeForJob = w.jobEndTime - w.jobStartTime;
         log.info("Job " + w.request.getJobID() + " spent " + timeOnQueue + " ms in queue, and took " + timeForJob + " ms.");
-        WorkerLogger.logFinishTask(log, w.request.getJobID());
-        WorkerLogger.logSendResponse(log, w.request.getJobID());
+        WorkerLogger.logFinishTask(w.request.getJobID());
+        WorkerLogger.logSendResponse(w.request.getJobID());
         w.done.run(resp);
     }
 }

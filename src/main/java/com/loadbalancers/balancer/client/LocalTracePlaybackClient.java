@@ -43,7 +43,7 @@ public class LocalTracePlaybackClient extends RpcClient {
     }
 
     public void runTrace (final LoadBalancer.Trace trace) {
-        log.info("Running trace:\t" + trace.getTraceName());
+        log.info("Running trace:\t" + trace.getTraceName() + " | " + trace.getReqsCount());
         final List<LoadBalancer.TraceRequest> reqs = trace.getReqsList();
         reqs.forEach(q -> {
             final long waitTime = q.getInterarrivalDelay();

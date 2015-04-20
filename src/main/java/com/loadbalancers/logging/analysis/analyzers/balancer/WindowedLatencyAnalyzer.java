@@ -1,8 +1,8 @@
 package com.loadbalancers.logging.analysis.analyzers.balancer;
 
 
-import com.loadbalancers.logging.analysis.events.LogEvent;
 import com.loadbalancers.logging.LogEventStream;
+import com.loadbalancers.logging.Logs;
 import org.jfree.chart.renderer.AbstractRenderer;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
@@ -40,24 +40,7 @@ public class WindowedLatencyAnalyzer extends MasterAnalyzer{
         dataset = new XYSeriesCollection();
         final XYSeries series = createData(s);
         hiddenSeries = new HashSet<>();
-        int addedSets = 0;
         dataset.addSeries(series);
-        addedSets++;
-        for (LogEvent.JobType t : LogEvent.JobType.values()) {
-            final XYSeries typeLatency = createData(s, t);
-            if (!typeLatency.isEmpty()) {
-                dataset.addSeries(typeLatency);
-                addedSets++;
-
-                final long cutoff = t.getLatencyThreshold();
-                final XYSeries bound = new XYSeries("");
-                bound.add(0, cutoff);
-                bound.add(s.getStreamEnd() / 1000., cutoff);
-                dataset.addSeries(bound);
-                hiddenSeries.add(addedSets);
-                addedSets++;
-            }
-        }
 
         createLinePlotPNG(LATENCY_GRAPH_TITLE, LATENCY_X_AXIS_LABEL, LATENCY_Y_AXIS_LABEL,
                 dataset, BALANCER_SUBFOLDER, LATENCY_GRAPH_FILENAME);
@@ -80,10 +63,10 @@ public class WindowedLatencyAnalyzer extends MasterAnalyzer{
     }
 
     protected XYSeries createData (final LogEventStream s) {
-        final List<List<LogEvent>> firstBucketing = s.bucket(DEFAULT_GRANULARITY_MS);
-        final List<List<LogEvent>> buckets = firstBucketing.parallelStream()
+        final List<List<Logs.LogEvent>> firstBucketing = s.bucket(DEFAULT_GRANULARITY_MS);
+        final List<List<Logs.LogEvent>> buckets = firstBucketing.parallelStream()
                 .map(B -> B.stream()
-                        .filter(e -> e.getLogEventType() == LogEvent.EventType.SERVER_DISPATCH_REQUEST)
+                        .filter(e -> e.getEventType() == Logs.LogEventType.SERVER_EVENT_SEND_WORKER_REQUEST)
                         .collect(Collectors.toList()))
                 .collect(Collectors.toList());
 
@@ -94,30 +77,14 @@ public class WindowedLatencyAnalyzer extends MasterAnalyzer{
         return series;
     }
 
-    protected XYSeries createData (final LogEventStream s, final LogEvent.JobType t) {
-        final List<List<LogEvent>> firstBucketing = s.bucket(DEFAULT_GRANULARITY_MS);
-        final List<List<LogEvent>> buckets = firstBucketing.parallelStream()
-                .map(B -> B.stream()
-                        .filter(e -> e.getLogEventType() == LogEvent.EventType.SERVER_DISPATCH_REQUEST &&
-                                     e.getJobType().get() == t)
-                        .collect(Collectors.toList()))
-                .collect(Collectors.toList());
-
-        final List<Long> bucketedLatencies = createBucketedLatencies(s, buckets);
-
-        final XYSeries series = new XYSeries(t.toString());
-        addDatapoints(buckets, bucketedLatencies, series);
-        return series;
-    }
-
-    protected List<Long> createBucketedLatencies(final LogEventStream s, List<List<LogEvent>> buckets) {
+    protected List<Long> createBucketedLatencies(final LogEventStream s, List<List<Logs.LogEvent>> buckets) {
         return buckets.parallelStream().map(B -> B.parallelStream()
-                .filter(e -> e.getLogEventType() == LogEvent.EventType.SERVER_DISPATCH_REQUEST)
+                .filter(e -> e.getEventType() == Logs.LogEventType.SERVER_EVENT_SEND_WORKER_REQUEST)
                 .map(e -> {
-                    int tag = e.getTag().get();
-                    final List<LogEvent> eventsForTag = s.getEventsForTag(tag);
-                    final LogEvent response = eventsForTag.stream()
-                            .filter(ev -> ev.getLogEventType() == LogEvent.EventType.SERVER_RECEIVE_RESPONSE)
+                    int jobID = e.getJobID();
+                    final List<Logs.LogEvent> jobEvents = s.getEventsByJobID(jobID);
+                    final Logs.LogEvent response = jobEvents.stream()
+                            .filter(ev -> ev.getEventType() == Logs.LogEventType.SERVER_EVENT_RECEIVE_WORKER_RESPONSE)
                             .collect(Collectors.toList())
                             .get(0);
                     return response.getTime() - e.getTime();
@@ -125,7 +92,7 @@ public class WindowedLatencyAnalyzer extends MasterAnalyzer{
                 .collect(Collectors.toList());
     }
 
-    protected void addDatapoints (final List<List<LogEvent>> buckets,
+    protected void addDatapoints (final List<List<Logs.LogEvent>> buckets,
                                   final List<Long> bucketedLatencies,
                                   final XYSeries series) {
         for (int b = 0; b < buckets.size(); b ++) {

@@ -39,6 +39,6 @@ public abstract class MonitoringWorker extends Worker {
 
         // TODO: implement actual load monitoring here
 
-        WorkerLogger.logLoad(log, snapshotB.build());
+        WorkerLogger.logLoad(snapshotB.build());
     }
 }

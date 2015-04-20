@@ -13,7 +13,7 @@ import java.nio.file.Paths;
  * @since 17/April/2015
  */
 public class RapGeniusTraceGenerator {
-    private final static long traceDurationSeconds = 1 * 1000;
+    private final static long traceDurationSeconds = 10 * 1000;
 
     /** Interarrival rate - mean requests/second */
     private final static double lambda = 150;
@@ -43,8 +43,7 @@ public class RapGeniusTraceGenerator {
         LoadBalancer.Trace.Builder traceBuilder = LoadBalancer.Trace.newBuilder();
         traceBuilder.setTraceName("Rap Genius Trace");
         while (time < traceDurationSeconds) {
-            final double interarrivalTimeSeconds = interarrivalGenerator.sample();
-            final long interarrivalTimeMillis = (long) (interarrivalTimeSeconds * 1000);
+            final long interarrivalTimeMillis = (long) interarrivalGenerator.sample();
 
             final long durationMillis = Long.min(30000, Long.max(10, (long) Math.ceil(jobDurationGenerator.sample())));
 

@@ -1,8 +1,8 @@
 package com.loadbalancers.logging.analysis.analyzers.balancer;
 
 
-import com.loadbalancers.logging.analysis.events.LogEvent;
 import com.loadbalancers.logging.LogEventStream;
+import com.loadbalancers.logging.Logs;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 import org.springframework.stereotype.Component;
@@ -39,21 +39,21 @@ public class BacklogAnalyzer extends MasterAnalyzer {
 
     protected XYSeries createData (final LogEventStream s) {
         final XYSeries series = new XYSeries("Backlog");
-        final Iterator<LogEvent> logIterator = s.iterator();
-        final Set<Integer> outstandingTags = new HashSet<>();
+        final Iterator<Logs.LogEvent> logIterator = s.iterator();
+        final Set<Integer> outstandingRequests = new HashSet<>();
         long nextTickMS = s.getStreamStart();
 
         while (logIterator.hasNext()) {
-            final LogEvent next = logIterator.next();
+            final Logs.LogEvent next = logIterator.next();
             while (next.getTime() > nextTickMS) {
-                series.add((double) nextTickMS / 1000., (double) outstandingTags.size());
+                series.add((double) nextTickMS / 1000., (double) outstandingRequests.size());
                 nextTickMS += DEFAULT_GRANULARITY_MS;
             }
 
-            if (next.getLogEventType() == LogEvent.EventType.SERVER_DISPATCH_REQUEST) {
-                outstandingTags.add(next.getTag().get());
-            } else if (next.getLogEventType() == LogEvent.EventType.SERVER_RECEIVE_RESPONSE) {
-                outstandingTags.remove(next.getTag().get());
+            if (next.getEventType() == Logs.LogEventType.SERVER_EVENT_SEND_WORKER_REQUEST) {
+                outstandingRequests.add(next.getJobID());
+            } else if (next.getEventType() == Logs.LogEventType.SERVER_EVENT_RECEIVE_WORKER_RESPONSE) {
+                outstandingRequests.remove(next.getJobID());
             }
         }
         return series;
