@@ -1,33 +1,28 @@
 package com.loadbalancers.logging;
 
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
-
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-
 /**
  * @author Elias Szabo-Wexler
  * @since 19/April/2015
  */
-public class WorkerLogger {
-    private final static Logger log = LogManager.getLogger(WorkerLogger.class);
-    protected static int workerID = -1;
+public class WorkerLogger extends EventLogger{
+    protected int workerID = -1;
+    protected boolean booted = false;
 
-    public static void setWorkerID (final int id) {
+    public void setWorkerID (final int id) {
         workerID = id;
     }
 
-    public static void logBooted () {
+    public void logBooted () {
         final Logs.LogEvent.Builder eventBuilder = Logs.LogEvent.newBuilder();
 
         eventBuilder.setWorkerID(workerID);
         eventBuilder.setEventType(Logs.LogEventType.WORKER_EVENT_BOOTED);
 
         logEvent(eventBuilder);
+        booted = true;
     }
 
-    public static void logReceivedRequest (final int jobID) {
+    public  void logReceivedRequest (final int jobID) {
         final Logs.LogEvent.Builder eventBuilder = Logs.LogEvent.newBuilder();
 
         eventBuilder.setEventType(Logs.LogEventType.WORKER_EVENT_RECEIVE_REQUEST);
@@ -37,7 +32,7 @@ public class WorkerLogger {
         logEvent(eventBuilder);
     }
 
-    public static void logStartTask (final int jobID) {
+    public  void logStartTask (final int jobID) {
         final Logs.LogEvent.Builder eventBuilder = Logs.LogEvent.newBuilder();
 
         eventBuilder.setEventType(Logs.LogEventType.WORKER_EVENT_START_TASK);
@@ -47,7 +42,7 @@ public class WorkerLogger {
         logEvent(eventBuilder);
     }
 
-    public static void logFinishTask (final int jobID) {
+    public  void logFinishTask (final int jobID) {
         final Logs.LogEvent.Builder eventBuilder = Logs.LogEvent.newBuilder();
 
         eventBuilder.setEventType(Logs.LogEventType.WORKER_EVENT_FINISH_TASK);
@@ -57,7 +52,7 @@ public class WorkerLogger {
         logEvent(eventBuilder);
     }
 
-    public static void logSendResponse (final int jobID) {
+    public  void logSendResponse (final int jobID) {
         final Logs.LogEvent.Builder eventBuilder = Logs.LogEvent.newBuilder();
 
         eventBuilder.setEventType(Logs.LogEventType.WORKER_EVENT_SEND_RESPONSE);
@@ -67,7 +62,8 @@ public class WorkerLogger {
         logEvent(eventBuilder);
     }
 
-    public static void logLoad (final Logs.LoadSnapshot load) {
+    public  void logLoad (final Logs.LoadSnapshot load) {
+        if (!booted) return;
         final Logs.LogEvent.Builder eventBuilder = Logs.LogEvent.newBuilder();
 
         eventBuilder.setEventType(Logs.LogEventType.WORKER_EVENT_REPORT_LOAD);
@@ -75,17 +71,5 @@ public class WorkerLogger {
         eventBuilder.setLoad(load);
 
         logEvent(eventBuilder);
-    }
-
-    protected static void logEvent (final Logs.LogEvent.Builder builder) {
-        builder.setTime(System.currentTimeMillis());
-        final Logs.LogEvent e = builder.build();
-        final ByteArrayOutputStream str = new ByteArrayOutputStream();
-        try {
-            e.writeTo(str);
-            log.info("LOG_EVENT:" + str.toString());
-        } catch (IOException ex) {
-            log.error("Failed to write log event to string!", ex);
-        }
     }
 }

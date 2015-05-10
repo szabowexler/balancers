@@ -43,8 +43,10 @@ message BalancerConfigurationRequest {
     optional int32 workerID = 1;
 }
 
+/** Configuration accepted response */
 message BalancerConfigurationResponse {
     optional bool accepted = 1;
+    optional int32 maxConcurrentJobs = 2;
 }
 
 //////////////////////////////////////////////////////////////////////////////

@@ -49,7 +49,7 @@ public class RpcClient {
         for (PeerInfo s : servers) {
             final PeerInfo connection = new PeerInfo(localHostname, port++);
             serverToLocalPortMap.put(s, connection);
-            final RpcServerCallExecutor executor = new ThreadPoolCallExecutor(3, 100);
+            final RpcServerCallExecutor executor = new ThreadPoolCallExecutor(3, 300);
             final DuplexTcpClientPipelineFactory clientFactory = makeClientFactory(connection, executor);
             final CleanShutdownHandler cleanShutdownHandler = makeTimeoutChecker(clientFactory, executor);
 

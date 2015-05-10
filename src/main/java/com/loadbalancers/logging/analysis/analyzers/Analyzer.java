@@ -36,8 +36,8 @@ public abstract class Analyzer {
     public static File ALL_SUBFOLDER = null;
 
     public static long DEFAULT_GRANULARITY_MS = 500;
-    public static int GRAPH_WIDTH = 1920;
-    public static int GRAPH_HEIGHT = 1080;
+    public static int GRAPH_WIDTH = 800;
+    public static int GRAPH_HEIGHT = 400;
 
     protected boolean showLegend;
     protected JFreeChart chart;
@@ -128,6 +128,10 @@ public abstract class Analyzer {
 
     public static void initializeAnalysis(final File analysisFolder) {
         ANALYSIS_FOLDER = analysisFolder;
+
+        if (!analysisFolder.exists()) {
+            analysisFolder.mkdir();
+        }
 
         BALANCER_SUBFOLDER = Paths.get(analysisFolder.getAbsolutePath(), BALANCER_SUBFOLDER_NAME).toFile();
         if (!BALANCER_SUBFOLDER.exists()) {

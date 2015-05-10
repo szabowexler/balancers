@@ -17,15 +17,18 @@ import java.util.concurrent.TimeUnit;
  */
 public abstract class Worker implements LoadBalancer.LoadBalancerWorker.Interface{
     private final static Logger log = LogManager.getLogger(Worker.class);
+    protected final WorkerLogger workerLogger;
     protected int workerID = -1;
 
     protected final ThreadPoolExecutor threadPool;
     protected final LinkedBlockingQueue<Runnable> reqs;
+    protected final int logicalCores;
 
     public Worker() {
         this.reqs = new LinkedBlockingQueue<>();
-        final int logicalCores = Runtime.getRuntime().availableProcessors();
+        logicalCores = Runtime.getRuntime().availableProcessors();
         this.threadPool = new ThreadPoolExecutor(logicalCores, logicalCores, 10, TimeUnit.SECONDS, reqs);
+        this.workerLogger = new WorkerLogger();
     }
 
     public int getWorkerID() {
@@ -37,10 +40,16 @@ public abstract class Worker implements LoadBalancer.LoadBalancerWorker.Interfac
                       final LoadBalancer.BalancerConfigurationRequest request,
                       final RpcCallback<LoadBalancer.BalancerConfigurationResponse> done) {
         this.workerID = request.getWorkerID();
+        workerLogger.setWorkerID(workerID);
         LoadBalancer.BalancerConfigurationResponse.Builder builder = LoadBalancer.BalancerConfigurationResponse.newBuilder();
         builder.setAccepted(true);
-        WorkerLogger.logBooted();
+        builder.setMaxConcurrentJobs(logicalCores);
+        workerLogger.logBooted();
         done.run(builder.build());
+    }
+
+    public void repeatBoot () {
+        workerLogger.logBooted();
     }
 
     @Override
@@ -48,7 +57,7 @@ public abstract class Worker implements LoadBalancer.LoadBalancerWorker.Interfac
                        final LoadBalancer.BalancerRequest request,
                        final RpcCallback<LoadBalancer.BalancerResponse> done) {
         log.info("Worker " + workerID + " received job:\t" + request.getJobID() + ".");
-        WorkerLogger.logReceivedRequest(request.getJobID());
+        workerLogger.logReceivedRequest(request.getJobID());
         final Work w = new Work(controller, request, done);
         threadPool.execute(w);
     }

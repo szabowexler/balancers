@@ -1,9 +1,9 @@
 package com.loadbalancers.logging;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ListIterator;
-import java.util.Optional;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -11,7 +11,8 @@ import java.util.stream.Collectors;
  * @since 22/March/2015
  */
 public class LogEventStream {
-    protected final List<Logs.LogEvent> events;
+    private final static Logger log = LogManager.getLogger(LogEventStream.class);
+    protected List<Logs.LogEvent> events;
 
     public LogEventStream() {
         this.events = new ArrayList<>();
@@ -25,18 +26,19 @@ public class LogEventStream {
         return events.listIterator();
     }
 
-    public void parse (final List<String> lines) {
-        // TODO: parse a log file
-    }
-
     public Logs.LogEvent get(int index) {
         return events.get(index);
     }
 
     public void setStreamStart(final long newStart) {
         final long delta = newStart - events.get(0).getTime();
-        // TODO: implement time rescaling
-        throw new UnsupportedOperationException("Not possible right now.");
+        events = events.stream().map(e -> e.toBuilder().setTime(e.getTime() + delta).build())
+                .collect(Collectors.toList());
+    }
+
+    public Logs.LogEvent getClosestEvent (final long t) {
+        return events.stream()
+                .reduce((e1, e2) -> Math.abs(e1.getTime() - t) < Math.abs(e2.getTime() - t) ? e1 : e2).get();
     }
 
     public long getStreamStart () {
@@ -111,6 +113,26 @@ public class LogEventStream {
         } else {
             return Optional.of(workerBootEvents.get(0).getWorkerID());
         }
+    }
+
+    public List<LogEventStream> extractWorkerStreams() {
+        final List<Logs.LogEvent> workerEvents = events.stream().filter(e ->
+                        e.getEventType().getNumber() >= 100
+        ).collect(Collectors.toList());
+        final Map<Integer, List<Logs.LogEvent>> workerEventStreams =
+                workerEvents.stream().collect(Collectors.groupingBy(Logs.LogEvent::getWorkerID));
+
+        final ArrayList<LogEventStream> streams = new ArrayList<>();
+        workerEventStreams.values().forEach(S -> streams.add(new LogEventStream(S)));
+        return streams;
+    }
+
+    public LogEventStream extractMasterStream () {
+        final List<Logs.LogEvent> masterEvents = events.stream().filter(e ->
+                        e.getEventType().getNumber() < 100
+        ).collect(Collectors.toList());
+
+        return new LogEventStream(masterEvents);
     }
 
     public String toString () {

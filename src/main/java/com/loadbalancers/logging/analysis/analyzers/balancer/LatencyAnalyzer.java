@@ -11,6 +11,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * @author Elias Szabo-Wexler
@@ -84,10 +85,10 @@ public class LatencyAnalyzer extends MasterAnalyzer{
                 .map(e -> {
                     int jobID = e.getJobID();
                     final List<Logs.LogEvent> eventsForTag = s.getEventsByJobID(jobID);
-                    final Logs.LogEvent response = eventsForTag.stream()
-                            .filter(ev -> ev.getEventType() == Logs.LogEventType.SERVER_EVENT_RECEIVE_WORKER_RESPONSE)
-                            .collect(Collectors.toList())
-                            .get(0);
+                    final Stream<Logs.LogEvent> responseStream = eventsForTag.stream()
+                            .filter(ev -> ev.getEventType() == Logs.LogEventType.SERVER_EVENT_RECEIVE_WORKER_RESPONSE);
+                    final List<Logs.LogEvent> responses = responseStream.collect(Collectors.toList());
+                    final Logs.LogEvent response = responses.get(0);
                     return response.getTime() - e.getTime();
                 }).collect(Collectors.summingLong(x -> x)))
                 .collect(Collectors.toList());

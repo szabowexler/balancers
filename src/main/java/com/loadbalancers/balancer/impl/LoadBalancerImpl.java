@@ -5,11 +5,11 @@ import com.googlecode.protobuf.pro.duplex.ClientRpcController;
 import com.googlecode.protobuf.pro.duplex.PeerInfo;
 import com.googlecode.protobuf.pro.duplex.RpcClientChannel;
 import com.loadbalancers.balancer.LoadBalancer;
+import com.loadbalancers.logging.BalancerLogger;
 import com.loadbalancers.rpc.client.RpcClient;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -26,6 +26,7 @@ public abstract class LoadBalancerImpl implements LoadBalancer.LoadBalancerServe
     protected final Random r;
     protected int nextServer;
     protected AtomicInteger nextJobID;
+
     protected Map<Integer, RpcClientChannel> workerIdToChannelMap;
 
     public LoadBalancerImpl (final List<PeerInfo> servers,
@@ -48,6 +49,7 @@ public abstract class LoadBalancerImpl implements LoadBalancer.LoadBalancerServe
                 worker.setID(workerController, req);
                 workerIdToChannelMap.put(id, channel);
                 log.info("Assigned worker " + id + " to their ID.");
+                BalancerLogger.logWorkerBooted(id);
             } catch (ServiceException ex) {
                 log.error("Something went wrong setting a worker id.", ex);
             }
@@ -65,26 +67,5 @@ public abstract class LoadBalancerImpl implements LoadBalancer.LoadBalancerServe
             reqBuilder.setSimulatedJobDuration(clientReq.getSimulatedJobDuration());
         }
         return reqBuilder.build();
-    }
-
-    public RpcClientChannel getRandomServer () {
-        final Collection<RpcClientChannel> servers = workerClient.getChannels().values();
-        if (workerIdToChannelMap.isEmpty()) {
-            throw new IllegalStateException("Error: no workers available!");
-        } else {
-            int workerID = r.nextInt(servers.size());
-            return workerIdToChannelMap.get(workerID);
-        }
-    }
-
-    public RpcClientChannel getNextServer () {
-        if (workerIdToChannelMap.isEmpty()) {
-            throw new IllegalStateException("Error: no workers available!");
-        } else {
-            if (nextServer >= workerIdToChannelMap.size()) {
-                nextServer = 0;
-            }
-            return workerIdToChannelMap.get(nextServer++);
-        }
     }
 }

@@ -1,7 +1,6 @@
 package com.loadbalancers.balancer.worker;
 
 import com.loadbalancers.balancer.LoadBalancer;
-import com.loadbalancers.logging.WorkerLogger;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
@@ -14,7 +13,7 @@ public class SimulationWorkerImpl extends MonitoringWorker {
     private final static Logger log = LogManager.getLogger(SimulationWorkerImpl.class);
 
     protected void processWork (final Work w) {
-        WorkerLogger.logStartTask(w.request.getJobID());
+        workerLogger.logStartTask(w.request.getJobID());
         w.jobStartTime = System.currentTimeMillis();
         log.info("Worker " + workerID + " starting job " + w.request.getJobID() + ".");
         final long duration = w.request.getSimulatedJobDuration();
@@ -30,8 +29,8 @@ public class SimulationWorkerImpl extends MonitoringWorker {
         final long timeOnQueue = w.jobStartTime - w.jobReceiveTime;
         final long timeForJob = w.jobEndTime - w.jobStartTime;
         log.info("Job " + w.request.getJobID() + " spent " + timeOnQueue + " ms in queue, and took " + timeForJob + " ms.");
-        WorkerLogger.logFinishTask(w.request.getJobID());
-        WorkerLogger.logSendResponse(w.request.getJobID());
+        workerLogger.logFinishTask(w.request.getJobID());
+        workerLogger.logSendResponse(w.request.getJobID());
         w.done.run(resp);
     }
 }

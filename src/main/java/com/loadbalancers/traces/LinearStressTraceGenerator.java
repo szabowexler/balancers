@@ -11,10 +11,14 @@ import java.nio.file.Paths;
  * @since 09/April/2015
  */
 
-public class ConstantTraceGenerator {
-    private final static long interarrivalTime = 50;
-    private final static long msPerJob = 500;
-    private final static long traceDurationSeconds = 20 * 1000;
+public class LinearStressTraceGenerator {
+    private final static long MIN_INTERARRIVAL_TIME = 40;
+    private final static long MAX_INTERARRIVAL_TIME = 1000;
+    private final static long INTERARRIVAL_DELTA = 50;
+    private final static int NUM_MAX_HITS_TO_BACKOFF = 25;
+    private static long interarrivalTime = MAX_INTERARRIVAL_TIME;
+    private final static long msPerJob = 750;
+    private final static long traceDurationSeconds = 30 * 1000;
 
     public static void main (final String[] args) throws Exception {
         final LoadBalancer.Trace trace = makeTrace();
@@ -31,7 +35,8 @@ public class ConstantTraceGenerator {
     protected static LoadBalancer.Trace makeTrace() {
         long time = 0;
         LoadBalancer.Trace.Builder traceBuilder = LoadBalancer.Trace.newBuilder();
-        traceBuilder.setTraceName("ConstantTrace");
+        traceBuilder.setTraceName("LinearIncreasingTrace");
+        int numOnMaxLoad = 0;
         while (time < traceDurationSeconds) {
             final LoadBalancer.TraceRequest.Builder traceReqBuilder = LoadBalancer.TraceRequest.newBuilder();
             traceReqBuilder.setInterarrivalDelay(interarrivalTime);
@@ -43,6 +48,16 @@ public class ConstantTraceGenerator {
 
             traceBuilder.addReqs(traceReqBuilder);
             time += interarrivalTime;
+            interarrivalTime -= INTERARRIVAL_DELTA;
+            if (interarrivalTime < MIN_INTERARRIVAL_TIME) {
+                interarrivalTime = MIN_INTERARRIVAL_TIME;
+                numOnMaxLoad++;
+            }
+
+            if (numOnMaxLoad > NUM_MAX_HITS_TO_BACKOFF) {
+                numOnMaxLoad = 0;
+                interarrivalTime = MAX_INTERARRIVAL_TIME;
+            }
         }
         return traceBuilder.build();
     }

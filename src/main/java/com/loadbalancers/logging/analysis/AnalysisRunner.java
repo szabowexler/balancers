@@ -1,29 +1,31 @@
 package com.loadbalancers.logging.analysis;
 
 
+import com.loadbalancers.logging.EventLogger;
+import com.loadbalancers.logging.LogEventStream;
 import com.loadbalancers.logging.Logs;
 import com.loadbalancers.logging.analysis.analyzers.Analyzer;
 import com.loadbalancers.logging.analysis.analyzers.balancer.MasterAnalyzer;
+import com.loadbalancers.logging.analysis.analyzers.comparison.ComparisonAnalyzer;
 import com.loadbalancers.logging.analysis.analyzers.system.GlobalAnalyzer;
 import com.loadbalancers.logging.analysis.analyzers.workers.WorkersAnalyzer;
-import com.loadbalancers.logging.LogEventStream;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @author Elias Szabo-Wexler
  * @since 20/March/2015
  */
-public class Runner {
+public class AnalysisRunner {
     public static void main (final String[] args) throws IOException {
         ApplicationContext context = new ClassPathXmlApplicationContext("spring-config.xml");
 
@@ -40,38 +42,46 @@ public class Runner {
         } else {
             logDir = new File(args[0]);
         }
-        Analyzer.initializeAnalysis(logDir);
-        final LogEventStream masterStream = loadMasterStream(logDir);
-        final List<LogEventStream> workerStreams = loadWorkerStreams(masterStream, logDir);
-        analyzeMasterStream(masterStream, context);
-        analyzeWorkerStreams(workerStreams, context);
-        analyzeGlobalSystem(workerStreams, masterStream, context);
+
+        final Map<String, List<Run>> runs = new ConcurrentHashMap<>();
+        for (final File f : logDir.listFiles()) {
+            final String fName = f.getName();
+            if (fName.endsWith("logevents.log")) {
+                final String prefix = fName.replaceAll("\\.logevents\\.log", "");
+                final String runName = prefix.replaceAll("\\..*", "");
+                if (!runs.containsKey(runName)) {
+                    runs.put(runName, new ArrayList<>());
+                }
+                System.out.println("============ Analyzing " + prefix + " ==============");
+                final File traceAnalysisDir = Paths.get(logDir.getPath(), prefix).toFile();
+                Analyzer.initializeAnalysis(traceAnalysisDir);
+
+                final LogEventStream stream = loadLogEventStream(f);
+                final LogEventStream masterStream = stream.extractMasterStream();
+                final List<LogEventStream> workerStreams = stream.extractWorkerStreams();
+//                analyzeMasterStream(masterStream, context);
+//                analyzeWorkerStreams(workerStreams, context);
+//                analyzeGlobalSystem(workerStreams, masterStream, context);
+                runs.get(runName).add(new Run(masterStream, workerStreams));
+            }
+        }
+
+        Analyzer.initializeAnalysis(Paths.get(logDir.getPath()).toFile());
+        compareRuns(context, runs);
     }
 
-    protected static LogEventStream loadMasterStream (final File logDir) {
-        final ArrayList<String> masterLogLines = new ArrayList<>();
-        Arrays.asList(logDir.listFiles()).forEach(f -> {
-            if (f.getName().startsWith("master.") && !f.getName().endsWith(".INFO")) {
-                try {
-                    System.out.println("Reading master log:\t" + f);
-                    masterLogLines.addAll(Files.readAllLines(f.toPath()));
-                } catch (IOException ex) {
-                    System.err.println("Unable to read file:\t" + f);
-                    ex.printStackTrace();
-                }
-            }
-        });
-
-        final LogEventStream stream = new LogEventStream();
-        stream.parse(masterLogLines);
+    protected static LogEventStream loadLogEventStream (final File f) throws IOException {
+        final List<Logs.LogEvent> logEvents = EventLogger.readEventLog(f);
+        final LogEventStream stream = new LogEventStream(logEvents);
         if (stream.size() == 0) {
-            System.out.println("Loaded empty master stream. Quitting.");
+            System.out.println("Loaded empty stream. Quitting.");
             System.exit(0);
         }
         stream.setStreamStart(0);
-        System.out.println("Loaded master stream: " + stream);
+        System.out.println("Loaded stream: " + stream);
         return stream;
     }
+
 
     protected static void analyzeMasterStream (final LogEventStream stream, final ApplicationContext context) throws IOException{
         // Do analysis on master stream
@@ -82,34 +92,6 @@ public class Runner {
             analyzer.analyze(stream);
         }
         System.out.println("===============================================================");
-    }
-
-    protected static List<LogEventStream> loadWorkerStreams (final LogEventStream masterStream, final File logDir) {
-        final ArrayList<LogEventStream> workerStreams = new ArrayList<>();
-        Arrays.asList(logDir.listFiles()).forEach(f -> {
-            if (f.getName().startsWith("worker.") && !f.getName().endsWith(".INFO")) {
-                try {
-                    System.out.println("Reading worker log:\t" + f);
-                    final List<String> workerLogLines = Files.readAllLines(f.toPath());
-                    final LogEventStream stream = new LogEventStream();
-                    stream.parse(workerLogLines);
-
-                    // Now adjust the stream to match the master stream
-                    final int workerID = stream.getWorkerID().get();
-                    final LogEventStream bootStream = masterStream.filterForType(Logs.LogEventType.SERVER_EVENT_WORKER_BOOTED);
-                    final long streamStart = bootStream.getEventsForWorker(workerID).get(0).getTime();
-                    System.out.println("Adjusting stream [worker " + workerID + "] to start at:\t" + streamStart);
-                    stream.setStreamStart(streamStart);
-                    workerStreams.add(stream);
-                } catch (IOException ex) {
-                    System.err.println("Unable to read file:\t" + f);
-                    ex.printStackTrace();
-                }
-            }
-        });
-        System.out.println("Loaded worker streams:");
-        workerStreams.forEach(s -> System.out.println("\t" + s));
-        return workerStreams;
     }
 
     protected static void analyzeWorkerStreams (final List<LogEventStream> workerStreams, final ApplicationContext context) throws IOException{
@@ -123,13 +105,27 @@ public class Runner {
         System.out.println("===============================================================");
     }
 
-    protected static void analyzeGlobalSystem (final List<LogEventStream> workerStreams, final LogEventStream masterStream, final ApplicationContext context) throws IOException{
+    protected static void analyzeGlobalSystem (final List<LogEventStream> workerStreams,
+                                               final LogEventStream masterStream,
+                                               final ApplicationContext context) throws IOException{
         // Do analysis on everything
         System.out.println("--- Analyzing joint streams.");
         System.out.println("===============================================================");
         Map<String, GlobalAnalyzer> analyzerBeans = context.getBeansOfType(GlobalAnalyzer.class);
         for (final GlobalAnalyzer analyzer : analyzerBeans.values()) {
             analyzer.analyze(workerStreams, masterStream);
+        }
+        System.out.println("===============================================================");
+    }
+
+    protected static void compareRuns (final ApplicationContext context,
+                                       final Map<String, List<Run>> runs) {
+        // Do analysis on everything
+        System.out.println("--- Comparing runs.");
+        System.out.println("===============================================================");
+        Map<String, ComparisonAnalyzer> analyzerBeans = context.getBeansOfType(ComparisonAnalyzer.class);
+        for (final ComparisonAnalyzer analyzer : analyzerBeans.values()) {
+            analyzer.analyze(runs);
         }
         System.out.println("===============================================================");
     }

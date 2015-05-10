@@ -16,13 +16,15 @@ enum LogEventType {
     SERVER_EVENT_SEND_WORKER_REQUEST = 4;
     SERVER_EVENT_RECEIVE_WORKER_RESPONSE = 5;
 
-    WORKER_EVENT_BOOTED = 6;
-    WORKER_EVENT_START_TASK = 7;
-    WORKER_EVENT_FINISH_TASK = 8;
+    SERVER_EVENT_SET_BALANCER_TYPE = 6;
 
-    WORKER_EVENT_RECEIVE_REQUEST = 9;
-    WORKER_EVENT_SEND_RESPONSE = 10;
-    WORKER_EVENT_REPORT_LOAD = 11;
+    WORKER_EVENT_BOOTED = 106;
+    WORKER_EVENT_START_TASK = 107;
+    WORKER_EVENT_FINISH_TASK = 108;
+
+    WORKER_EVENT_RECEIVE_REQUEST = 109;
+    WORKER_EVENT_SEND_RESPONSE = 110;
+    WORKER_EVENT_REPORT_LOAD = 111;
 }
 
 /** Encapsulate an event for analysis*/
@@ -34,6 +36,14 @@ message LogEvent {
     optional int32 clientID = 4;
     optional int32 jobID = 5;
     optional LoadSnapshot load = 6;
+
+    optional BalancerType bType = 7;
+}
+
+enum BalancerType {
+    RANDOM = 1;
+    LEAST_LOADED = 2;
+    ROUND_ROBIN = 3;
 }
 
 /** Encapsulate load level for analysis */
