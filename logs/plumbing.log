@@ -1,0 +1,412 @@
+ INFO 08 May 2015 15:25:49,328 [main] (RpcServerFactory.java:35) - Creating server on: <localhost:16418>.
+ INFO 08 May 2015 15:25:49,489 [main] (RpcServerFactory.java:38) - Created server tcp factory.
+ INFO 08 May 2015 15:25:49,494 [main] (RpcServerFactory.java:41) - Created server executor.
+ INFO 08 May 2015 15:25:49,553 [main] (RpcServerFactory.java:43) - Created server bootstrap.
+ INFO 08 May 2015 15:25:49,735 [main] (RpcServer.java:39) - Launching server [nonblocking]...
+ INFO 08 May 2015 15:25:49,892 [Thread-2] (RpcServer.java:58) - Serving ServerBootstrap(group: NioEventLoopGroup, channelFactory: NioServerSocketChannel.class, localAddress: 0.0.0.0/0.0.0.0:16418, options: {SO_KEEPALIVE=true, SO_SNDBUF=1048576, SO_RCVBUF=1048576, TCP_NODELAY=false, SO_REUSEADDR=true}, childGroup: NioEventLoopGroup, childOptions: {SO_RCVBUF=1048576, SO_SNDBUF=1048576}, childHandler: DuplexTcpServerPipelineFactory:localhost:16418[7ea747b7-94a3-4cbf-8018-58a51af69e12]).
+ INFO 08 May 2015 15:25:49,893 [Thread-2] (RpcServer.java:63) - Number of clients=0
+ INFO 08 May 2015 15:25:49,950 [main] (RpcServer.java:53) - Server running! Returning to calling thread.
+ INFO 08 May 2015 15:25:49,950 [main] (RpcServerFactory.java:35) - Creating server on: <localhost:16419>.
+ INFO 08 May 2015 15:25:49,952 [main] (RpcServerFactory.java:38) - Created server tcp factory.
+ INFO 08 May 2015 15:25:49,953 [main] (RpcServerFactory.java:41) - Created server executor.
+ INFO 08 May 2015 15:25:49,953 [main] (RpcServerFactory.java:43) - Created server bootstrap.
+ INFO 08 May 2015 15:25:49,954 [main] (RpcServer.java:39) - Launching server [nonblocking]...
+ INFO 08 May 2015 15:25:49,955 [Thread-4] (RpcServer.java:58) - Serving ServerBootstrap(group: NioEventLoopGroup, channelFactory: NioServerSocketChannel.class, localAddress: 0.0.0.0/0.0.0.0:16419, options: {SO_KEEPALIVE=true, SO_SNDBUF=1048576, SO_RCVBUF=1048576, TCP_NODELAY=false, SO_REUSEADDR=true}, childGroup: NioEventLoopGroup, childOptions: {SO_RCVBUF=1048576, SO_SNDBUF=1048576}, childHandler: DuplexTcpServerPipelineFactory:localhost:16419[c041d618-9be1-4d25-b7a4-3ac2dcd9c441]).
+ INFO 08 May 2015 15:25:49,956 [Thread-4] (RpcServer.java:63) - Number of clients=0
+ INFO 08 May 2015 15:25:50,054 [main] (RpcServer.java:53) - Server running! Returning to calling thread.
+ INFO 08 May 2015 15:25:50,056 [main] (RpcServerFactory.java:35) - Creating server on: <localhost:16420>.
+ INFO 08 May 2015 15:25:50,056 [main] (RpcServerFactory.java:38) - Created server tcp factory.
+ INFO 08 May 2015 15:25:50,056 [main] (RpcServerFactory.java:41) - Created server executor.
+ INFO 08 May 2015 15:25:50,057 [main] (RpcServerFactory.java:43) - Created server bootstrap.
+ INFO 08 May 2015 15:25:50,057 [main] (RpcServer.java:39) - Launching server [nonblocking]...
+ INFO 08 May 2015 15:25:50,058 [Thread-6] (RpcServer.java:58) - Serving ServerBootstrap(group: NioEventLoopGroup, channelFactory: NioServerSocketChannel.class, localAddress: 0.0.0.0/0.0.0.0:16420, options: {SO_KEEPALIVE=true, SO_SNDBUF=1048576, SO_RCVBUF=1048576, TCP_NODELAY=false, SO_REUSEADDR=true}, childGroup: NioEventLoopGroup, childOptions: {SO_RCVBUF=1048576, SO_SNDBUF=1048576}, childHandler: DuplexTcpServerPipelineFactory:localhost:16420[9f37653a-1845-4446-ab2b-fb8eaac56e99]).
+ INFO 08 May 2015 15:25:50,058 [Thread-6] (RpcServer.java:63) - Number of clients=0
+ INFO 08 May 2015 15:25:50,158 [main] (RpcServer.java:53) - Server running! Returning to calling thread.
+ INFO 08 May 2015 15:25:50,158 [main] (RpcServerFactory.java:35) - Creating server on: <localhost:15418>.
+ INFO 08 May 2015 15:25:50,158 [main] (RpcServerFactory.java:38) - Created server tcp factory.
+ INFO 08 May 2015 15:25:50,158 [main] (RpcServerFactory.java:41) - Created server executor.
+ INFO 08 May 2015 15:25:50,159 [main] (RpcServerFactory.java:43) - Created server bootstrap.
+ INFO 08 May 2015 15:25:50,175 [main] (RpcClient.java:65) - Connecting from localhost:15419[fabfba54-c81e-4e34-91e1-10c5f2894c33] to :	localhost:16418[22d92f93-79cc-4f59-8a54-d40b832fb801]
+ INFO 08 May 2015 15:25:50,289 [worker:pool-3-thread-1] (ServerRpcConnectionEventListener.java:21) - server connectionOpened localhost:16418->localhost:15419
+ INFO 08 May 2015 15:25:50,290 [main] (ClientRpcConnectionEventListener.java:23) - client connectionOpened localhost:15419->localhost:16418
+ INFO 08 May 2015 15:25:50,291 [main] (RpcClient.java:65) - Connecting from localhost:15420[0045cf7b-a4d8-4ea9-87f6-4c2f77f978f3] to :	localhost:16419[eab7e1f0-9be5-435d-aa49-fdbe858fc61d]
+ INFO 08 May 2015 15:25:50,293 [worker:pool-7-thread-1] (ServerRpcConnectionEventListener.java:21) - server connectionOpened localhost:16419->localhost:15420
+ INFO 08 May 2015 15:25:50,294 [main] (ClientRpcConnectionEventListener.java:23) - client connectionOpened localhost:15420->localhost:16419
+ INFO 08 May 2015 15:25:50,295 [main] (RpcClient.java:65) - Connecting from localhost:15421[566f1952-f22e-4cd4-a50a-f734eb47e6ce] to :	localhost:16420[98b823c6-b744-4fb9-b630-2033a548fc31]
+ INFO 08 May 2015 15:25:50,298 [worker:pool-11-thread-1] (ServerRpcConnectionEventListener.java:21) - server connectionOpened localhost:16420->localhost:15421
+ INFO 08 May 2015 15:25:50,298 [main] (ClientRpcConnectionEventListener.java:23) - client connectionOpened localhost:15421->localhost:16420
+ INFO 08 May 2015 15:25:50,326 [main] (RpcServer.java:39) - Launching server [nonblocking]...
+ INFO 08 May 2015 15:25:50,327 [Thread-11] (RpcServer.java:58) - Serving ServerBootstrap(group: NioEventLoopGroup, channelFactory: NioServerSocketChannel.class, localAddress: 0.0.0.0/0.0.0.0:15418, options: {SO_KEEPALIVE=true, SO_SNDBUF=1048576, SO_RCVBUF=1048576, TCP_NODELAY=false, SO_REUSEADDR=true}, childGroup: NioEventLoopGroup, childOptions: {SO_RCVBUF=1048576, SO_SNDBUF=1048576}, childHandler: DuplexTcpServerPipelineFactory:localhost:15418[0498e2d8-e56f-4341-98a9-c95a58e58cfd]).
+ INFO 08 May 2015 15:25:50,327 [Thread-11] (RpcServer.java:63) - Number of clients=0
+ INFO 08 May 2015 15:25:50,427 [main] (RpcServer.java:53) - Server running! Returning to calling thread.
+ INFO 08 May 2015 15:25:50,431 [main] (RpcClient.java:65) - Connecting from localhost:15417[07aabdb8-96a4-4404-a1b2-9565345a5142] to :	localhost:15418[3c97933a-4d6a-48a3-b00a-9a98f01df126]
+ INFO 08 May 2015 15:25:50,436 [worker:pool-15-thread-1] (ServerRpcConnectionEventListener.java:21) - server connectionOpened localhost:15418->localhost:15417
+ INFO 08 May 2015 15:25:50,436 [main] (ClientRpcConnectionEventListener.java:23) - client connectionOpened localhost:15417->localhost:15418
+ INFO 08 May 2015 15:25:54,893 [Thread-2] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:25:54,956 [Thread-4] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:25:55,058 [Thread-6] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:25:55,328 [Thread-11] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:25:59,894 [Thread-2] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:25:59,956 [Thread-4] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:26:00,060 [Thread-6] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:26:00,328 [Thread-11] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:26:04,895 [Thread-2] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:26:04,957 [Thread-4] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:26:05,061 [Thread-6] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:26:05,329 [Thread-11] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:26:09,895 [Thread-2] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:26:09,957 [Thread-4] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:26:10,061 [Thread-6] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:26:10,329 [Thread-11] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:26:14,896 [Thread-2] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:26:14,957 [Thread-4] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:26:15,062 [Thread-6] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:26:15,329 [Thread-11] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:26:19,896 [Thread-2] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:26:19,958 [Thread-4] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:26:20,063 [Thread-6] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:26:20,330 [Thread-11] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:26:24,896 [Thread-2] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:26:24,958 [Thread-4] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:26:25,064 [Thread-6] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:26:25,330 [Thread-11] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:26:29,897 [Thread-2] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:26:29,959 [Thread-4] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:26:30,064 [Thread-6] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:26:30,331 [Thread-11] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:26:34,897 [Thread-2] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:26:34,959 [Thread-4] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:26:35,065 [Thread-6] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:26:35,331 [Thread-11] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:26:39,897 [Thread-2] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:26:39,959 [Thread-4] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:26:40,065 [Thread-6] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:26:40,331 [Thread-11] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:26:44,898 [Thread-2] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:26:44,959 [Thread-4] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:26:45,066 [Thread-6] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:26:45,331 [Thread-11] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:26:49,898 [Thread-2] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:26:49,960 [Thread-4] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:26:50,066 [Thread-6] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:26:50,332 [Thread-11] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:26:54,898 [Thread-2] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:26:54,960 [Thread-4] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:26:55,066 [Thread-6] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:26:55,332 [Thread-11] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:26:59,899 [Thread-2] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:26:59,960 [Thread-4] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:27:00,066 [Thread-6] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:27:00,333 [Thread-11] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:27:04,899 [Thread-2] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:27:04,960 [Thread-4] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:27:05,067 [Thread-6] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:27:05,333 [Thread-11] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:27:09,899 [Thread-2] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:27:09,961 [Thread-4] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:27:10,067 [Thread-6] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:27:10,333 [Thread-11] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:27:14,900 [Thread-2] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:27:14,961 [Thread-4] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:27:15,068 [Thread-6] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:27:15,334 [Thread-11] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:27:19,900 [Thread-2] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:27:19,962 [Thread-4] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:27:20,068 [Thread-6] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:27:20,334 [Thread-11] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:27:24,900 [Thread-2] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:27:24,962 [Thread-4] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:27:25,068 [Thread-6] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:27:25,334 [Thread-11] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:27:29,901 [Thread-2] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:27:29,962 [Thread-4] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:27:30,069 [Thread-6] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:27:30,335 [Thread-11] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:27:34,901 [Thread-2] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:27:34,963 [Thread-4] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:27:35,069 [Thread-6] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:27:35,335 [Thread-11] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:27:39,901 [Thread-2] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:27:39,963 [Thread-4] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:27:40,069 [Thread-6] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:27:40,335 [Thread-11] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:27:41,388 [nioEventLoopGroup-4-1] (ClientRpcConnectionEventListener.java:28) - client connectionLost localhost:15421->localhost:16420
+ INFO 08 May 2015 15:27:41,388 [worker:pool-11-thread-1] (ServerRpcConnectionEventListener.java:26) - server connectionLost localhost:16420->localhost:15421
+ INFO 08 May 2015 15:27:41,388 [nioEventLoopGroup-2-1] (ClientRpcConnectionEventListener.java:28) - client connectionLost localhost:15419->localhost:16418
+ INFO 08 May 2015 15:27:41,389 [nioEventLoopGroup-5-1] (ClientRpcConnectionEventListener.java:28) - client connectionLost localhost:15417->localhost:15418
+ INFO 08 May 2015 15:27:41,389 [worker:pool-15-thread-1] (ServerRpcConnectionEventListener.java:26) - server connectionLost localhost:15418->localhost:15417
+ INFO 08 May 2015 15:27:41,392 [nioEventLoopGroup-3-1] (ClientRpcConnectionEventListener.java:28) - client connectionLost localhost:15420->localhost:16419
+ INFO 08 May 2015 15:27:41,392 [worker:pool-3-thread-1] (ServerRpcConnectionEventListener.java:26) - server connectionLost localhost:16418->localhost:15419
+ INFO 08 May 2015 15:27:41,392 [worker:pool-7-thread-1] (ServerRpcConnectionEventListener.java:26) - server connectionLost localhost:16419->localhost:15420
+ INFO 08 May 2015 15:27:51,267 [main] (RpcServerFactory.java:35) - Creating server on: <localhost:16418>.
+ INFO 08 May 2015 15:27:51,374 [main] (RpcServerFactory.java:38) - Created server tcp factory.
+ INFO 08 May 2015 15:27:51,376 [main] (RpcServerFactory.java:41) - Created server executor.
+ INFO 08 May 2015 15:27:51,455 [main] (RpcServerFactory.java:43) - Created server bootstrap.
+ INFO 08 May 2015 15:27:51,654 [main] (RpcServer.java:39) - Launching server [nonblocking]...
+ INFO 08 May 2015 15:27:51,761 [Thread-2] (RpcServer.java:58) - Serving ServerBootstrap(group: NioEventLoopGroup, channelFactory: NioServerSocketChannel.class, localAddress: 0.0.0.0/0.0.0.0:16418, options: {SO_KEEPALIVE=true, SO_SNDBUF=1048576, SO_RCVBUF=1048576, TCP_NODELAY=false, SO_REUSEADDR=true}, childGroup: NioEventLoopGroup, childOptions: {SO_RCVBUF=1048576, SO_SNDBUF=1048576}, childHandler: DuplexTcpServerPipelineFactory:localhost:16418[366d27b3-f570-49e8-8a91-3b69e4027a3f]).
+ INFO 08 May 2015 15:27:51,762 [Thread-2] (RpcServer.java:63) - Number of clients=0
+ INFO 08 May 2015 15:27:51,859 [main] (RpcServer.java:53) - Server running! Returning to calling thread.
+ INFO 08 May 2015 15:27:51,860 [main] (RpcServerFactory.java:35) - Creating server on: <localhost:16419>.
+ INFO 08 May 2015 15:27:51,862 [main] (RpcServerFactory.java:38) - Created server tcp factory.
+ INFO 08 May 2015 15:27:51,862 [main] (RpcServerFactory.java:41) - Created server executor.
+ INFO 08 May 2015 15:27:51,864 [main] (RpcServerFactory.java:43) - Created server bootstrap.
+ INFO 08 May 2015 15:27:51,871 [main] (RpcServer.java:39) - Launching server [nonblocking]...
+ INFO 08 May 2015 15:27:51,886 [Thread-4] (RpcServer.java:58) - Serving ServerBootstrap(group: NioEventLoopGroup, channelFactory: NioServerSocketChannel.class, localAddress: 0.0.0.0/0.0.0.0:16419, options: {SO_KEEPALIVE=true, SO_SNDBUF=1048576, SO_RCVBUF=1048576, TCP_NODELAY=false, SO_REUSEADDR=true}, childGroup: NioEventLoopGroup, childOptions: {SO_RCVBUF=1048576, SO_SNDBUF=1048576}, childHandler: DuplexTcpServerPipelineFactory:localhost:16419[212abffe-34d5-42d5-a0a6-41520186a8e5]).
+ INFO 08 May 2015 15:27:51,886 [Thread-4] (RpcServer.java:63) - Number of clients=0
+ INFO 08 May 2015 15:27:51,978 [main] (RpcServer.java:53) - Server running! Returning to calling thread.
+ INFO 08 May 2015 15:27:51,979 [main] (RpcServerFactory.java:35) - Creating server on: <localhost:16420>.
+ INFO 08 May 2015 15:27:51,979 [main] (RpcServerFactory.java:38) - Created server tcp factory.
+ INFO 08 May 2015 15:27:51,980 [main] (RpcServerFactory.java:41) - Created server executor.
+ INFO 08 May 2015 15:27:51,981 [main] (RpcServerFactory.java:43) - Created server bootstrap.
+ INFO 08 May 2015 15:27:51,986 [main] (RpcServer.java:39) - Launching server [nonblocking]...
+ INFO 08 May 2015 15:27:52,016 [Thread-6] (RpcServer.java:58) - Serving ServerBootstrap(group: NioEventLoopGroup, channelFactory: NioServerSocketChannel.class, localAddress: 0.0.0.0/0.0.0.0:16420, options: {SO_KEEPALIVE=true, SO_SNDBUF=1048576, SO_RCVBUF=1048576, TCP_NODELAY=false, SO_REUSEADDR=true}, childGroup: NioEventLoopGroup, childOptions: {SO_RCVBUF=1048576, SO_SNDBUF=1048576}, childHandler: DuplexTcpServerPipelineFactory:localhost:16420[96e5222b-ea7b-4dc0-abb2-4d1c67e98696]).
+ INFO 08 May 2015 15:27:52,017 [Thread-6] (RpcServer.java:63) - Number of clients=0
+ INFO 08 May 2015 15:27:52,107 [main] (RpcServer.java:53) - Server running! Returning to calling thread.
+ INFO 08 May 2015 15:27:52,108 [main] (RpcServerFactory.java:35) - Creating server on: <localhost:15418>.
+ INFO 08 May 2015 15:27:52,108 [main] (RpcServerFactory.java:38) - Created server tcp factory.
+ INFO 08 May 2015 15:27:52,108 [main] (RpcServerFactory.java:41) - Created server executor.
+ INFO 08 May 2015 15:27:52,109 [main] (RpcServerFactory.java:43) - Created server bootstrap.
+ INFO 08 May 2015 15:27:52,126 [main] (RpcClient.java:65) - Connecting from localhost:15419[efbf64c9-f41e-4f27-a58d-96587dd2f03f] to :	localhost:16418[7b206484-53ad-4c79-bc6b-f5aa10162f2d]
+ INFO 08 May 2015 15:27:52,292 [worker:pool-3-thread-1] (ServerRpcConnectionEventListener.java:21) - server connectionOpened localhost:16418->localhost:15419
+ INFO 08 May 2015 15:27:52,292 [main] (ClientRpcConnectionEventListener.java:23) - client connectionOpened localhost:15419->localhost:16418
+ INFO 08 May 2015 15:27:52,293 [main] (RpcClient.java:65) - Connecting from localhost:15420[2b8c5b1f-a483-4ff5-8950-19f371f4f099] to :	localhost:16419[ff76e839-6f93-4702-a6bf-64e0a2c2f9a0]
+ INFO 08 May 2015 15:27:52,296 [worker:pool-7-thread-1] (ServerRpcConnectionEventListener.java:21) - server connectionOpened localhost:16419->localhost:15420
+ INFO 08 May 2015 15:27:52,296 [main] (ClientRpcConnectionEventListener.java:23) - client connectionOpened localhost:15420->localhost:16419
+ INFO 08 May 2015 15:27:52,297 [main] (RpcClient.java:65) - Connecting from localhost:15421[4bba76aa-79de-4c6d-b555-c9a02e275898] to :	localhost:16420[08a5e7fe-843a-460a-a255-3be5820d0db7]
+ INFO 08 May 2015 15:27:52,299 [worker:pool-11-thread-1] (ServerRpcConnectionEventListener.java:21) - server connectionOpened localhost:16420->localhost:15421
+ INFO 08 May 2015 15:27:52,300 [main] (ClientRpcConnectionEventListener.java:23) - client connectionOpened localhost:15421->localhost:16420
+ INFO 08 May 2015 15:27:52,330 [main] (RpcServer.java:39) - Launching server [nonblocking]...
+ INFO 08 May 2015 15:27:52,331 [Thread-11] (RpcServer.java:58) - Serving ServerBootstrap(group: NioEventLoopGroup, channelFactory: NioServerSocketChannel.class, localAddress: 0.0.0.0/0.0.0.0:15418, options: {SO_KEEPALIVE=true, SO_SNDBUF=1048576, SO_RCVBUF=1048576, TCP_NODELAY=false, SO_REUSEADDR=true}, childGroup: NioEventLoopGroup, childOptions: {SO_RCVBUF=1048576, SO_SNDBUF=1048576}, childHandler: DuplexTcpServerPipelineFactory:localhost:15418[848b84a9-29e9-48b4-9d59-0ead6cfc4b71]).
+ INFO 08 May 2015 15:27:52,331 [Thread-11] (RpcServer.java:63) - Number of clients=0
+ INFO 08 May 2015 15:27:52,431 [main] (RpcServer.java:53) - Server running! Returning to calling thread.
+ INFO 08 May 2015 15:27:52,433 [main] (RpcClient.java:65) - Connecting from localhost:15417[8935849a-44c6-469a-a48b-2d27b25dc03f] to :	localhost:15418[40324301-1813-48d7-a161-e6c8b2168153]
+ INFO 08 May 2015 15:27:52,437 [worker:pool-15-thread-1] (ServerRpcConnectionEventListener.java:21) - server connectionOpened localhost:15418->localhost:15417
+ INFO 08 May 2015 15:27:52,438 [main] (ClientRpcConnectionEventListener.java:23) - client connectionOpened localhost:15417->localhost:15418
+ INFO 08 May 2015 15:27:56,763 [Thread-2] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:27:56,887 [Thread-4] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:27:57,017 [Thread-6] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:27:57,332 [Thread-11] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:28:01,763 [Thread-2] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:28:01,888 [Thread-4] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:28:02,018 [Thread-6] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:28:02,332 [Thread-11] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:28:06,764 [Thread-2] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:28:06,888 [Thread-4] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:28:07,019 [Thread-6] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:28:07,333 [Thread-11] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:28:11,765 [Thread-2] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:28:11,888 [Thread-4] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:28:12,020 [Thread-6] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:28:12,333 [Thread-11] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:28:16,765 [Thread-2] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:28:16,889 [Thread-4] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:28:17,021 [Thread-6] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:28:17,334 [Thread-11] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:28:21,766 [Thread-2] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:28:21,889 [Thread-4] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:28:22,022 [Thread-6] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:28:22,334 [Thread-11] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:28:26,766 [Thread-2] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:28:26,890 [Thread-4] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:28:27,022 [Thread-6] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:28:27,334 [Thread-11] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:28:31,767 [Thread-2] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:28:31,890 [Thread-4] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:28:32,023 [Thread-6] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:28:32,335 [Thread-11] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:28:36,767 [Thread-2] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:28:36,890 [Thread-4] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:28:37,023 [Thread-6] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:28:37,335 [Thread-11] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:28:41,768 [Thread-2] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:28:41,891 [Thread-4] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:28:42,023 [Thread-6] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:28:42,335 [Thread-11] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:28:46,768 [Thread-2] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:28:46,891 [Thread-4] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:28:47,023 [Thread-6] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:28:47,336 [Thread-11] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:28:51,768 [Thread-2] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:28:51,891 [Thread-4] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:28:52,024 [Thread-6] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:28:52,336 [Thread-11] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:28:56,769 [Thread-2] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:28:56,892 [Thread-4] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:28:57,024 [Thread-6] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:28:57,336 [Thread-11] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:29:01,769 [Thread-2] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:29:01,892 [Thread-4] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:29:02,024 [Thread-6] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:29:02,337 [Thread-11] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:29:06,769 [Thread-2] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:29:06,892 [Thread-4] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:29:07,025 [Thread-6] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:29:07,337 [Thread-11] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:29:11,770 [Thread-2] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:29:11,892 [Thread-4] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:29:12,025 [Thread-6] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:29:12,337 [Thread-11] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:29:16,770 [Thread-2] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:29:16,893 [Thread-4] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:29:17,026 [Thread-6] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:29:17,337 [Thread-11] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:29:21,771 [Thread-2] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:29:21,893 [Thread-4] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:29:22,026 [Thread-6] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:29:22,338 [Thread-11] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:29:26,771 [Thread-2] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:29:26,893 [Thread-4] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:29:27,026 [Thread-6] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:29:27,338 [Thread-11] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:29:31,771 [Thread-2] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:29:31,894 [Thread-4] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:29:32,026 [Thread-6] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:29:32,338 [Thread-11] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:29:36,772 [Thread-2] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:29:36,894 [Thread-4] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:29:37,027 [Thread-6] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:29:37,339 [Thread-11] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:29:41,357 [nioEventLoopGroup-2-1] (ClientRpcConnectionEventListener.java:28) - client connectionLost localhost:15419->localhost:16418
+ INFO 08 May 2015 15:29:41,362 [worker:pool-15-thread-1] (ServerRpcConnectionEventListener.java:26) - server connectionLost localhost:15418->localhost:15417
+ INFO 08 May 2015 15:29:41,363 [nioEventLoopGroup-5-1] (ClientRpcConnectionEventListener.java:28) - client connectionLost localhost:15417->localhost:15418
+ INFO 08 May 2015 15:29:41,363 [nioEventLoopGroup-4-1] (ClientRpcConnectionEventListener.java:28) - client connectionLost localhost:15421->localhost:16420
+ INFO 08 May 2015 15:29:41,363 [worker:pool-11-thread-1] (ServerRpcConnectionEventListener.java:26) - server connectionLost localhost:16420->localhost:15421
+ INFO 08 May 2015 15:29:41,363 [worker:pool-3-thread-1] (ServerRpcConnectionEventListener.java:26) - server connectionLost localhost:16418->localhost:15419
+ INFO 08 May 2015 15:29:41,375 [nioEventLoopGroup-3-1] (ClientRpcConnectionEventListener.java:28) - client connectionLost localhost:15420->localhost:16419
+ INFO 08 May 2015 15:29:41,376 [worker:pool-7-thread-1] (ServerRpcConnectionEventListener.java:26) - server connectionLost localhost:16419->localhost:15420
+ INFO 08 May 2015 15:29:49,262 [main] (RpcServerFactory.java:35) - Creating server on: <localhost:16418>.
+ INFO 08 May 2015 15:29:49,416 [main] (RpcServerFactory.java:38) - Created server tcp factory.
+ INFO 08 May 2015 15:29:49,421 [main] (RpcServerFactory.java:41) - Created server executor.
+ INFO 08 May 2015 15:29:49,531 [main] (RpcServerFactory.java:43) - Created server bootstrap.
+ INFO 08 May 2015 15:29:49,682 [main] (RpcServer.java:39) - Launching server [nonblocking]...
+ INFO 08 May 2015 15:29:49,781 [Thread-2] (RpcServer.java:58) - Serving ServerBootstrap(group: NioEventLoopGroup, channelFactory: NioServerSocketChannel.class, localAddress: 0.0.0.0/0.0.0.0:16418, options: {SO_KEEPALIVE=true, SO_SNDBUF=1048576, SO_RCVBUF=1048576, TCP_NODELAY=false, SO_REUSEADDR=true}, childGroup: NioEventLoopGroup, childOptions: {SO_RCVBUF=1048576, SO_SNDBUF=1048576}, childHandler: DuplexTcpServerPipelineFactory:localhost:16418[52d84a0b-bd26-45b3-b8c5-4c343429f8a2]).
+ INFO 08 May 2015 15:29:49,782 [Thread-2] (RpcServer.java:63) - Number of clients=0
+ INFO 08 May 2015 15:29:49,784 [main] (RpcServer.java:53) - Server running! Returning to calling thread.
+ INFO 08 May 2015 15:29:49,784 [main] (RpcServerFactory.java:35) - Creating server on: <localhost:16419>.
+ INFO 08 May 2015 15:29:49,786 [main] (RpcServerFactory.java:38) - Created server tcp factory.
+ INFO 08 May 2015 15:29:49,787 [main] (RpcServerFactory.java:41) - Created server executor.
+ INFO 08 May 2015 15:29:49,787 [main] (RpcServerFactory.java:43) - Created server bootstrap.
+ INFO 08 May 2015 15:29:49,792 [main] (RpcServer.java:39) - Launching server [nonblocking]...
+ INFO 08 May 2015 15:29:49,793 [Thread-4] (RpcServer.java:58) - Serving ServerBootstrap(group: NioEventLoopGroup, channelFactory: NioServerSocketChannel.class, localAddress: 0.0.0.0/0.0.0.0:16419, options: {SO_KEEPALIVE=true, SO_SNDBUF=1048576, SO_RCVBUF=1048576, TCP_NODELAY=false, SO_REUSEADDR=true}, childGroup: NioEventLoopGroup, childOptions: {SO_RCVBUF=1048576, SO_SNDBUF=1048576}, childHandler: DuplexTcpServerPipelineFactory:localhost:16419[ba21b317-e7ac-4884-9938-ffa6d3beca33]).
+ INFO 08 May 2015 15:29:49,794 [Thread-4] (RpcServer.java:63) - Number of clients=0
+ INFO 08 May 2015 15:29:49,893 [main] (RpcServer.java:53) - Server running! Returning to calling thread.
+ INFO 08 May 2015 15:29:49,894 [main] (RpcServerFactory.java:35) - Creating server on: <localhost:16420>.
+ INFO 08 May 2015 15:29:49,894 [main] (RpcServerFactory.java:38) - Created server tcp factory.
+ INFO 08 May 2015 15:29:49,894 [main] (RpcServerFactory.java:41) - Created server executor.
+ INFO 08 May 2015 15:29:49,895 [main] (RpcServerFactory.java:43) - Created server bootstrap.
+ INFO 08 May 2015 15:29:49,901 [main] (RpcServer.java:39) - Launching server [nonblocking]...
+ INFO 08 May 2015 15:29:49,904 [Thread-6] (RpcServer.java:58) - Serving ServerBootstrap(group: NioEventLoopGroup, channelFactory: NioServerSocketChannel.class, localAddress: 0.0.0.0/0.0.0.0:16420, options: {SO_KEEPALIVE=true, SO_SNDBUF=1048576, SO_RCVBUF=1048576, TCP_NODELAY=false, SO_REUSEADDR=true}, childGroup: NioEventLoopGroup, childOptions: {SO_RCVBUF=1048576, SO_SNDBUF=1048576}, childHandler: DuplexTcpServerPipelineFactory:localhost:16420[adcf2641-e056-4c33-9baa-7b0843fcf856]).
+ INFO 08 May 2015 15:29:49,905 [Thread-6] (RpcServer.java:63) - Number of clients=0
+ INFO 08 May 2015 15:29:50,002 [main] (RpcServer.java:53) - Server running! Returning to calling thread.
+ INFO 08 May 2015 15:29:50,003 [main] (RpcServerFactory.java:35) - Creating server on: <localhost:15418>.
+ INFO 08 May 2015 15:29:50,003 [main] (RpcServerFactory.java:38) - Created server tcp factory.
+ INFO 08 May 2015 15:29:50,004 [main] (RpcServerFactory.java:41) - Created server executor.
+ INFO 08 May 2015 15:29:50,004 [main] (RpcServerFactory.java:43) - Created server bootstrap.
+ INFO 08 May 2015 15:29:50,024 [main] (RpcClient.java:65) - Connecting from localhost:15419[128f6231-cc80-4613-82d3-33aef9b37957] to :	localhost:16418[de57d4ac-65ae-4d63-b79e-c0a2841f096f]
+ INFO 08 May 2015 15:29:50,181 [worker:pool-3-thread-1] (ServerRpcConnectionEventListener.java:21) - server connectionOpened localhost:16418->localhost:15419
+ INFO 08 May 2015 15:29:50,181 [main] (ClientRpcConnectionEventListener.java:23) - client connectionOpened localhost:15419->localhost:16418
+ INFO 08 May 2015 15:29:50,183 [main] (RpcClient.java:65) - Connecting from localhost:15420[8e76e105-22e1-413e-8e6c-b3743601d6fc] to :	localhost:16419[3b7db43c-aee5-4427-96dd-46858303145a]
+ INFO 08 May 2015 15:29:50,186 [worker:pool-7-thread-1] (ServerRpcConnectionEventListener.java:21) - server connectionOpened localhost:16419->localhost:15420
+ INFO 08 May 2015 15:29:50,186 [main] (ClientRpcConnectionEventListener.java:23) - client connectionOpened localhost:15420->localhost:16419
+ INFO 08 May 2015 15:29:50,187 [main] (RpcClient.java:65) - Connecting from localhost:15421[bfd3aff2-df28-4539-a386-aeaa6cc3b512] to :	localhost:16420[bb53097b-9912-4498-9805-7291a0366ba3]
+ INFO 08 May 2015 15:29:50,190 [worker:pool-11-thread-1] (ServerRpcConnectionEventListener.java:21) - server connectionOpened localhost:16420->localhost:15421
+ INFO 08 May 2015 15:29:50,190 [main] (ClientRpcConnectionEventListener.java:23) - client connectionOpened localhost:15421->localhost:16420
+ INFO 08 May 2015 15:29:50,213 [main] (RpcServer.java:39) - Launching server [nonblocking]...
+ INFO 08 May 2015 15:29:50,213 [Thread-11] (RpcServer.java:58) - Serving ServerBootstrap(group: NioEventLoopGroup, channelFactory: NioServerSocketChannel.class, localAddress: 0.0.0.0/0.0.0.0:15418, options: {SO_KEEPALIVE=true, SO_SNDBUF=1048576, SO_RCVBUF=1048576, TCP_NODELAY=false, SO_REUSEADDR=true}, childGroup: NioEventLoopGroup, childOptions: {SO_RCVBUF=1048576, SO_SNDBUF=1048576}, childHandler: DuplexTcpServerPipelineFactory:localhost:15418[f4b723fa-4db1-4d87-8458-75d51fd2c690]).
+ INFO 08 May 2015 15:29:50,214 [Thread-11] (RpcServer.java:63) - Number of clients=0
+ INFO 08 May 2015 15:29:50,313 [main] (RpcServer.java:53) - Server running! Returning to calling thread.
+ INFO 08 May 2015 15:29:50,318 [main] (RpcClient.java:65) - Connecting from localhost:15417[5ef1a310-8fe9-4ce0-a3a6-1b3cdcc5bdcc] to :	localhost:15418[368cc267-09d2-4d1d-a897-404a4e6dc5f4]
+ INFO 08 May 2015 15:29:50,325 [worker:pool-15-thread-1] (ServerRpcConnectionEventListener.java:21) - server connectionOpened localhost:15418->localhost:15417
+ INFO 08 May 2015 15:29:50,325 [main] (ClientRpcConnectionEventListener.java:23) - client connectionOpened localhost:15417->localhost:15418
+ INFO 08 May 2015 15:29:54,782 [Thread-2] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:29:54,794 [Thread-4] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:29:54,905 [Thread-6] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:29:55,214 [Thread-11] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:29:59,783 [Thread-2] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:29:59,795 [Thread-4] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:29:59,906 [Thread-6] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:30:00,215 [Thread-11] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:30:04,784 [Thread-2] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:30:04,796 [Thread-4] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:30:04,906 [Thread-6] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:30:05,216 [Thread-11] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:30:09,785 [Thread-2] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:30:09,796 [Thread-4] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:30:09,906 [Thread-6] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:30:10,216 [Thread-11] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:30:14,785 [Thread-2] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:30:14,796 [Thread-4] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:30:14,907 [Thread-6] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:30:15,217 [Thread-11] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:30:19,786 [Thread-2] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:30:19,797 [Thread-4] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:30:19,907 [Thread-6] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:30:20,217 [Thread-11] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:30:24,787 [Thread-2] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:30:24,797 [Thread-4] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:30:24,908 [Thread-6] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:30:25,217 [Thread-11] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:30:29,787 [Thread-2] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:30:29,798 [Thread-4] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:30:29,908 [Thread-6] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:30:30,218 [Thread-11] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:30:34,787 [Thread-2] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:30:34,798 [Thread-4] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:30:34,909 [Thread-6] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:30:35,218 [Thread-11] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:30:39,788 [Thread-2] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:30:39,798 [Thread-4] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:30:39,909 [Thread-6] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:30:40,219 [Thread-11] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:30:44,788 [Thread-2] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:30:44,799 [Thread-4] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:30:44,909 [Thread-6] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:30:45,219 [Thread-11] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:30:49,789 [Thread-2] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:30:49,799 [Thread-4] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:30:49,910 [Thread-6] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:30:50,220 [Thread-11] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:30:54,789 [Thread-2] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:30:54,799 [Thread-4] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:30:54,910 [Thread-6] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:30:55,220 [Thread-11] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:30:59,789 [Thread-2] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:30:59,800 [Thread-4] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:30:59,910 [Thread-6] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:31:00,220 [Thread-11] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:31:04,790 [Thread-2] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:31:04,800 [Thread-4] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:31:04,911 [Thread-6] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:31:05,220 [Thread-11] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:31:09,790 [Thread-2] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:31:09,800 [Thread-4] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:31:09,911 [Thread-6] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:31:10,221 [Thread-11] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:31:14,791 [Thread-2] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:31:14,801 [Thread-4] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:31:14,911 [Thread-6] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:31:15,221 [Thread-11] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:31:19,791 [Thread-2] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:31:19,801 [Thread-4] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:31:19,912 [Thread-6] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:31:20,222 [Thread-11] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:31:24,791 [Thread-2] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:31:24,802 [Thread-4] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:31:24,912 [Thread-6] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:31:25,222 [Thread-11] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:31:29,792 [Thread-2] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:31:29,802 [Thread-4] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:31:29,913 [Thread-6] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:31:30,223 [Thread-11] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:31:34,792 [Thread-2] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:31:34,802 [Thread-4] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:31:34,913 [Thread-6] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:31:35,223 [Thread-11] (RpcServer.java:63) - Number of clients=1
+ INFO 08 May 2015 15:31:39,246 [nioEventLoopGroup-2-1] (ClientRpcConnectionEventListener.java:28) - client connectionLost localhost:15419->localhost:16418
+ INFO 08 May 2015 15:31:39,247 [nioEventLoopGroup-3-1] (ClientRpcConnectionEventListener.java:28) - client connectionLost localhost:15420->localhost:16419
+ INFO 08 May 2015 15:31:39,248 [worker:pool-7-thread-1] (ServerRpcConnectionEventListener.java:26) - server connectionLost localhost:16419->localhost:15420
+ INFO 08 May 2015 15:31:39,255 [worker:pool-3-thread-1] (ServerRpcConnectionEventListener.java:26) - server connectionLost localhost:16418->localhost:15419
+ INFO 08 May 2015 15:31:39,255 [worker:pool-15-thread-1] (ServerRpcConnectionEventListener.java:26) - server connectionLost localhost:15418->localhost:15417
+ INFO 08 May 2015 15:31:39,255 [worker:pool-11-thread-1] (ServerRpcConnectionEventListener.java:26) - server connectionLost localhost:16420->localhost:15421
+ INFO 08 May 2015 15:31:39,255 [nioEventLoopGroup-5-1] (ClientRpcConnectionEventListener.java:28) - client connectionLost localhost:15417->localhost:15418
+ INFO 08 May 2015 15:31:39,255 [nioEventLoopGroup-4-1] (ClientRpcConnectionEventListener.java:28) - client connectionLost localhost:15421->localhost:16420
